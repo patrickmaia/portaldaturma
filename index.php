@@ -7,15 +7,15 @@
     <title>Portal da Turma - Login</title>
 
     <!-- jQuery -->
-    <script src="/res/js/jquery-2.1.0.min.js"></script>
+    <script src="res/js/jquery-2.1.0.min.js"></script>
 
     <!-- Bootstrap -->
-    <script src="/res/js/bootstrap.min.js"></script>
-    <link href="/res/css/bootstrap.min.css" rel="stylesheet">
+    <script src="res/js/bootstrap.min.js"></script>
+    <link href="res/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap Validator -->
-    <link rel="stylesheet" href="/res/css/bootstrapValidator.css"/>
-    <script type="text/javascript" src="/res/js/bootstrapValidator.js"></script>
+    <link rel="stylesheet" href="res/css/bootstrapValidator.css"/>
+    <script type="text/javascript" src="res/js/bootstrapValidator.js"></script>
     <!-- -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

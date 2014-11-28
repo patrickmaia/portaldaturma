@@ -90,6 +90,18 @@ function cadastraTurma(){
 	xmlreq.send(null)
 
 }	
+
+
+
+// function adicionarAviso(Remetente){
+// 	var remetente = Remetente;
+// 	var destinatario = document.getElementById("turmaSelecionada").value;
+// 	var conteudoAviso = document.getElementById("novoAviso").value;
+
+// 	xmlreq = criaRequest();
+// 	resultado.innerHTML = '<img src="../res/loading.gif"/>';
+// 	xmlreq.open("GET", "../class/Aviso.php?remetente="+)
+// }
 // function  cadastraAviso(){
 // 	var aviso = document.getElementById("aviso").value;
 // 	var resultado = document.getElementById("resultado");

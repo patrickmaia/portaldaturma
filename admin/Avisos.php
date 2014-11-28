@@ -167,20 +167,20 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
     <div class="col-xs-3">
       <h3> Adicionar Aviso </h3>
 
-    <textarea class="form-control" rows="3" id="novoAviso"></textarea>
 
     </div>
        </div>
           <br />
+          <form action ="../class/Aviso.php" name="adicionarAviso" method="POST">
+              <textarea id="novoAviso" name="novoAviso" class="form-control" rows="3"> </textarea>
+
            <?php 
         require_once('../class/mysql.php');
         $mysql = new MySQL;
-
         $sql = "SELECT * FROM turmas";
         $rs = $mysql->query($sql);
-
-        echo '<select name="select" id="turmaSelecionada">';
-
+        echo '<select name="turmaSelecionada" id="turmaSelecionada">';
+        echo '<option VALUE="" selected="selected"></option>';
         while($row=mysql_fetch_array($rs))
         {
             echo '<option value="' . htmlspecialchars($row['idTurma']) . '">' 
@@ -189,9 +189,11 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
         }
         echo '</select>';
      ?>
-     <br />
-    <input type="button" class="btn btn-primary" name="addAviso" id="addAviso" style="margin-top:10px;"value="Adicionar" />
 
+     <br />
+
+    <input type="submit" class="btn btn-primary" name="addAviso" id="addAviso" style="margin-top:10px;" value="Adicionar" />
+    </form>
      </div>
 
 

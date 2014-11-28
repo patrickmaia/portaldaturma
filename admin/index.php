@@ -7,8 +7,7 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
     header('location:login.php');
 }
 
-require('../class/Administrador.class.php');
-$admin = new Administrador();
+
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +61,7 @@ $admin = new Administrador();
                     <a href="#" id="showAlunos">Alunos</a>
                 </li>
                 <li>
-                    <a href="#" id="showAvisos">Avisos</a>
+                    <a href="Avisos.php" id="showAvisos">Avisos</a>
                 </li>
                 <li>
                     <a href="#">Conteúdo</a>
@@ -133,7 +132,7 @@ $admin = new Administrador();
         });
       });
 
-
+http://www.baixou.com.br/produtos/baixas/notebooks-laptops/1/preco
 
 
        $(document).ready(function(){
