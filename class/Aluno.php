@@ -13,23 +13,24 @@ e-mail = formulario
 telefone = formulario
 
 */
+
+function geraSenha(){
+$caracteres = "0123456789";
+$shuffle = substr(str_shuffle($caracteres),0,6);
+
+return $shuffle;
+}
+
 $nomeAluno = $_POST["nomeAlunoAdd"];
 $telefoneAluno = $_POST["telefoneAlunoAdd"];
 $emailAluno = $_POST["emailAlunoAdd"];
 $randId = $nomeAluno.time();
 $idAluno = substr(md5($randId),0,6);
 $turmaAluno = $_POST["turmaSelecionadaAddAluno"];
+$matriculaAluno = $_POST["matriculaAlunoAdd"];
+$senhaAluno = geraSenha();
 
-
-echo $idAluno;
-echo $nomeAluno;
-
-echo $turmaAluno;
-
-echo $emailAluno;
-
-echo $telefoneAluno;
-$sql = "INSERT INTO alunos(idAluno, nomeAluno, turmaAluno, emailAluno, telefoneAluno) VALUES ('$idAluno', '$nomeAluno', '$turmaAluno', '$emailAluno', '$telefoneAluno')";
+$sql = "INSERT INTO alunos(idAluno, nomeAluno, turmaAluno, matriculaAluno, senhaAluno, emailAluno, telefoneAluno) VALUES ('$idAluno', '$nomeAluno', '$turmaAluno', '$matriculaAluno', '$senhaAluno', '$emailAluno', '$telefoneAluno')";
 
 $rs = $mysql->query($sql);
 
@@ -40,7 +41,7 @@ else{
 	$msg=2;
 }
 
-header('location:/admin/Alunos.php?msg='.$msg);
+header('location:/admin/Alunos.php?msg='.$msg.'&idAluno='.$idAluno);
 
 }
 
@@ -73,6 +74,7 @@ if(isset($_GET["nomeAluno"])){
 							<th>ID </th>
 							<th>Nome </th>
 							<th>Turma </th>
+							<th> Matricula </th>
 							<th> E-mail </th>
 							<th> Telefone </th>
 							</tr>
@@ -85,6 +87,7 @@ if(isset($_GET["nomeAluno"])){
 			$return.="<td>" . utf8_encode($linha["idAluno"]) . "</td>";
 			$return.="<td>" . utf8_encode($linha["nomeAluno"]) . "</td>";
 			$return.="<td>" . utf8_encode($linha["turmaAluno"]) . "</td>";
+			$return.="<td>" . utf8_encode($linha["matriculaAluno"]) . "</td>";
 			$return.="<td>" . utf8_encode($linha["emailAluno"]) . "</td>";
 			$return.="<td>" . utf8_encode($linha["telefoneAluno"]) . "</td>";
 

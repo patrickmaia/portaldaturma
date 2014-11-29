@@ -35,13 +35,13 @@
 			<hr />
 			<form class="form-horizontal" role="form" id="formLogin" method="post" action="professor/auth_professor.php">
 	  				<div class="form-group">
-	    				<label for="login" class="col-sm-2 control-label"> Login: </label>
+	    				<label for="login" class="col-sm-2 control-label"> Login </label>
 	        				<div class="col-sm-10">
 	     						<input type="text" name="loginProfessor" id="loginProfessor" class="form-control" placeholder="Login">
 	   						</div>
 	 				 </div>
 	  				<div class="form-group">
-	   					<label for="senha" class="col-sm-2 control-label"> Senha: </label>
+	   					<label for="senha" class="col-sm-2 control-label"> Senha </label>
 	    					<div class="col-sm-10">
 	    						<input type="password" name="senhaProfessor" id="senhaProfessor" class="form-control" placeholder="Senha">
 	  						</div>
@@ -61,15 +61,15 @@
             <hr />
             <form class="form-horizontal" role="form" id="formLogin" method="post" action="aluno/auth_aluno.php">
                     <div class="form-group">
-                        <label for="login" class="col-sm-2 control-label"> Login: </label>
+                        <label for="loginAluno" class="col-sm-2 control-label"> Login </label>
                             <div class="col-sm-10">
-                                <input type="text" name="login" id="login" class="form-control" placeholder="Login">
+                                <input type="text" name="loginAluno" id="loginAluno" class="form-control" placeholder="Login">
                             </div>
                      </div>
                     <div class="form-group">
-                        <label for="senha" class="col-sm-2 control-label"> Senha: </label>
+                        <label for="senhaAluno" class="col-sm-2 control-label"> Senha </label>
                             <div class="col-sm-10">
-                                <input type="password" name="senha" id="senha" class="form-control" placeholder="Senha">
+                                <input type="password" name="senhaAluno" id="senhaAluno" class="form-control" placeholder="Senha">
                             </div>
                     </div>
                     <div class="form-group">

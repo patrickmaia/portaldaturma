@@ -1,0 +1,33 @@
+Checklist
+
+# Sistema
+	[] Monitor de Recursos
+	[] API do DigitalOcean para Ligar/Desligar/Reiniciar o servidor.
+
+# Administrador
+	[] Login
+
+	[] Enviar Avisos
+	[] Deletar Avisos
+	[] Visualizar Avisos
+
+	[] Criar Turmas
+	[] Deletar Turmas
+
+	[] Inserir Alunos
+	[] Visualizar Alunos
+	[] Visualizar Alunos de uma determinada turma
+	[] Deletar Alunos
+
+# Professor
+
+
+
+#Aluno
+
+-------------------------
+
+# Entrega
+[] Relatório
+[] 3 cópias do relatório
+[] Projeto rodando no servidor

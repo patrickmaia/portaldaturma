@@ -45,33 +45,30 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
   <body>
   <div id="wrapper">
 
-   <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Administrador
-                    </a>
-                </li>
-                <li>
-                    <a href="Turmas.php" id="showTurmas">Turmas</a>
-                </li>
-                <li>
-                    <a href="Alunos.php" id="showAlunos">Alunos</a>
-                </li>
-                <li>
-                    <a href="Avisos.php" id="showAvisos">Avisos</a>
-                </li>
-                <li>
-                    <a href="#">Conteúdo</a>
-                </li>
-                <li>
-                    <a href="#">Mensagens</a>
-                </li>
-              
-            </ul>
-        </div>
-      <!-- Sidebar -->
+  <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+            <a href="index.php">  Administrador</a>
+          </li>
+          <li>
+            <a href="Turmas.php" id="showTurmas">Turmas</a>
+          </li>
+          <li>
+            <a href="Alunos.php" id="showAlunos">Alunos</a>
+          </li>
+          <li>
+            <a href="Avisos.php" id="showAvisos">Avisos</a>
+          </li>
+          <li>
+            <a href="Envios.php" id="showEnvios">Envios</a>
+          </li>
+          <li>
+            <a href="Professores.php" id="showProfessores">Professores</a>
+          </li>
+      </ul>
+    </div>
+      <!-- Sidebar !-->
 
 <div id="page-content-wrapper">
   <nav class="navbar navbar-inverse" role="navigation">
@@ -92,7 +89,7 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
         <ul class="nav navbar-nav">
           <li class="active"><a href="#"><i class="glyphicon glyphicon-cloud"></i> Dashboard</a></li>
           <li><a href="#"><i class="glyphicon glyphicon-user"></i> Perfil</a></li>
-          <li><a href="adminGerenciar.php"><i class="glyphicon glyphicon-list-alt"></i> Gerenciar</a></li>
+          <li><a href="sysinfo/"><i class="glyphicon glyphicon-list-alt"></i> Gerenciar</a></li>
 
         </ul>
         

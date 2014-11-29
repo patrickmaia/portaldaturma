@@ -4,17 +4,18 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
     session_destroy();
     unset ($_SESSION['login']);
     unset ($_SESSION['senha']);
-    header('location:login.php');
+    header('location:../login.php');
 }
 
 ?>
 
 <!DOCTYPE html>
+<html lang="pt">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Portal da Turma - Login - Administrador</title>
+    <title>Portal da Turma - Alunos - Administrador</title>
     <!-- jQuery -->
     <script src="/res/js/jquery-2.1.0.min.js"></script>
 
@@ -26,11 +27,10 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
     <link rel="stylesheet" href="/res/css/bootstrapValidator.css"/>
     <script type="text/javascript" src="/res/js/bootstrapValidator.js"></script>
 
-        <!-- Simple Sidebar-->
+    <!-- Simple Sidebar-->
     <link rel="stylesheet" href="../res/css/simple-sidebar.css" >
     <!-- Ajax !-->
     <script type="text/javascript" src="../res/js/ajax.js"></script>
-
     <!-- -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,44 +39,38 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    
   </head>
   <body>
   <div id="wrapper">
-
    <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Administrador
-                    </a>
-                </li>
-                <li>
-                    <a href="Turmas.php" id="showTurmas">Turmas</a>
-                </li>
-                <li>
-                    <a href="Alunos.php" id="showAlunos">Alunos</a>
-                </li>
-                <li>
-                    <a href="Avisos.php" id="showAvisos">Avisos</a>
-                </li>
-                <li>
-                    <a href="#">Conteúdo</a>
-                </li>
-                <li>
-                    <a href="#">Mensagens</a>
-                </li>
-              
-            </ul>
-        </div>
-      <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+            <a href="index.php">  Administrador</a>
+          </li>
+          <li>
+            <a href="Turmas.php" id="showTurmas">Turmas</a>
+          </li>
+          <li>
+            <a href="Alunos.php" id="showAlunos">Alunos</a>
+          </li>
+          <li>
+            <a href="Avisos.php" id="showAvisos">Avisos</a>
+          </li>
+          <li>
+            <a href="Envios.php" id="showEnvios">Envios</a>
+          </li>
+          <li>
+            <a href="Professores.php" id="showProfessores">Professores</a>
+          </li>
+      </ul>
+    </div>
+      <!-- Sidebar !-->
 
 <div id="page-content-wrapper">
+  <!-- NavBar !-->
   <nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
           <span class="sr-only">Toggle navigation</span>
@@ -92,7 +86,7 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
         <ul class="nav navbar-nav">
           <li class="active"><a href="#"><i class="glyphicon glyphicon-cloud"></i> Dashboard</a></li>
           <li><a href="#"><i class="glyphicon glyphicon-user"></i> Perfil</a></li>
-          <li><a href="adminGerenciar.php"><i class="glyphicon glyphicon-list-alt"></i> Gerenciar</a></li>
+          <li><a href="sysinfo/"><i class="glyphicon glyphicon-list-alt"></i> Gerenciar</a></li>
 
         </ul>
         
@@ -110,130 +104,100 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
       </div><!-- /.navbar-collapse -->
       </div>
       </nav>
-      </div>
+      <!-- NavBar !-->
+</div>
 
-      <!-- Funções do Sidebar 
-      <script type="text/javascript">
-      $(document).ready(function(){
-        $("#showTurmas").click(function(){
-          $("#conteudo").html('<div id="adicionarTurma">\
-  <div class="row">\
-    <div class="col-xs-3">\
-            <h3> Adicionar Turma </h3>\
-            <input type="text" class="form-control" placeholder="" id="nomeTurma">\
-        </div>\
-    </div>\
-      <input type="button" class="btn btn-primary" name="addAluno" id="addALuno" style="margin-top:10px;"value="Adcionar" onclick="cadastraTurma();"/>\
-</div>\
-            <hr/>\
-<div id="resultado"></div>\
-');
-        });
-      });
-
-
-
-
-       $(document).ready(function(){
-        $("#showAlunos").click(function(){
-          $("#conteudo").html('<div id="Pesquisar">\
-                <div class="row">\
-                  <div class="col-xs-3">\
-                    <h3> Nome do Aluno: </h3>\
-                    <input type="text" class="form-control" placeholder="" id="nomeAluno">\
-                  </div>\
-                </div>\
-                <input type="button" class="btn btn-primary" name="btnPesquisar" style="margin-top:10px;"value="Pesquisar" onclick="getAluno();"/>\
-            </div>\
-            <hr/>\
-            <h2>Resultados da pesquisa:</h2>\
-            <div id="Resultado"></div>\
-  </div>');
-        });
-      });
-
-
-
-    </script>
-!-->
-
-       
 <div id="page-content-wrapper"> <!--Importante encapsular o conteúdo da página com page-content-wrapper caso contrário o conteúdo irá invadir a sidebar. -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12" id="conteudo">
-            <?php
-            if(isset($_GET["msg"])){
-           @$msg = "";
-           @$msg = $_GET["msg"];
+      <?php
+      if(isset($_GET["msg"])){
+        @$msg = "";
+        @$msg = $_GET["msg"];
 
-           if($msg==1){
+        //Pegar os dados do aluno inserido para imprimir login e senha.
+        $alunoCriado = $_GET["idAluno"];
+        $sql = "SELECT * FROM alunos WHERE idAluno = '$alunoCriado'";
+        require_once('../class/mysql.php');
+        $mysql = new MySQL;
+        $rquery = $mysql->query($sql);
+        $dados = mysql_fetch_array($rquery);
+
+
+
+          if($msg==1){
             echo '<div class="alert alert-success" role="alert">';
-            echo 'Aluno adicionado com sucesso!';
-            echo '</div>';
-           }else{
+            echo 'Aluno adicionado com sucesso!<br />';
             
-            echo '<div class="alert alert-danger" role="alert">';
-            echo 'Aviso não enviado.';
+            echo '<b> Nome: </b>'.$dados["nomeAluno"];
+            echo ' |<b> Login: </b>'.$dados["matriculaAluno"];
+            echo ' |<b> Senha: </b>'.$dados["senhaAluno"];
+
+
             echo '</div>';
-           }
-         }
-          ?>
-
-
-
-        <h3><span class="glyphicon glyphicon-plus-sign"> </span> Adicionar Aluno</h3> 
-        <form action="../class/Aluno.php"  method="POST" role="form">
-          <div class="form-group">
-          <label for="nomeAlunoAdd">Nome: </label>
-          <input name="nomeAlunoAdd" id="nomeAlunoAdd" type="text" class="form-control" >
-          </div>
-
-          <!-- Pega as turmas no BD !-->
-          <div class="form-group">
-          <label for="turmaSelecionadaAddAluno">Turma: </label>
-          <?php 
-          require_once('../class/mysql.php');
-          $mysql = new MySQL;
-          $sql = "SELECT * FROM turmas";
-          $rs = $mysql->query($sql);
-          echo '<select name="turmaSelecionadaAddAluno" id="turmaSelecionadaAddAluno" class="form-control">';
-          //echo '<option VALUE="" selected="selected"></option>';
-          while($row=mysql_fetch_array($rs))
-          {
-              echo '<option value="' . htmlspecialchars($row['idTurma']) . '">' 
-                  . htmlspecialchars($row['Turma']) 
-                  . '</option>';
-          }
-          echo '</select>';
-          ?>
-          <div class="form-group">
-
-      
-
-          <div class="form-group">
-          <label for="emailAlunoAdd">E-mail: </label>
-          <input name="emailAlunoAdd" type="email" class="form-control" id="emailAlunoAdd">
-          </div>
-
-          <div class="form-group">
-          <label for="telefoneAlunoAdd">Telefone: </label>
-          <input name="telefoneAlunoAdd" type="text" class="form-control" id="telefoneAlunoAdd">
-          </div>
-
-          <button type="submit" class="btn btn-primary"> Adicionar </button>
-        </form> <!-- Fim do Form que adiciona alunos !-->
-        <hr />
-        <div id="Pesquisar">
-                <div class="row">
-                 
-                    <h3><span class=" glyphicon glyphicon-search"></span> Pesquisar Aluno: </h3>
-                    <input type="text" class="form-control" placeholder="" id="nomeAluno">
-                
-                </div>
-                <input type="button" class="btn btn-primary" name="btnPesquisar" style="margin-top:10px;"value="Pesquisar" onclick="getAluno();"/>
+            }else{
+              echo '<div class="alert alert-danger" role="alert">';
+              echo 'Aluno não adicionado.';
+              echo '</div>';
+              }
+      }
+      ?>
+          <h3><span class="glyphicon glyphicon-plus-sign"> </span> Adicionar Aluno</h3> 
+          <form action="../class/Aluno.php"  method="POST" role="form">
+            <div class="form-group">
+              <label for="nomeAlunoAdd">Nome </label>
+              <input name="nomeAlunoAdd" id="nomeAlunoAdd" type="text" class="form-control" >
             </div>
+
+            <div class="form-group">
+              <label for="turmaSelecionadaAddAluno">Turma </label>
+                <?php 
+                require_once('../class/mysql.php');
+                $mysql = new MySQL;
+                $sql = "SELECT * FROM turmas";
+                $rs = $mysql->query($sql);
+                echo '<select name="turmaSelecionadaAddAluno" id="turmaSelecionadaAddAluno" class="form-control">';
+                while($row=mysql_fetch_array($rs))
+                {
+                    echo '<option value="' . htmlspecialchars($row['idTurma']) . '">' 
+                        . htmlspecialchars($row['Turma']) 
+                        . '</option>';
+                }
+                echo '</select>';
+                ?>
+            </div>
+
+            <div class="form-group">
+              <label for="matriculaAlunoAdd">Matrícula </label>
+              <input name="matriculaAlunoAdd" type="text" class="form-control" id="matriculaAlunoAdd">
+            </div>
+
+            <div class="form-group">
+              <label for="emailAlunoAdd">E-mail </label>
+              <input name="emailAlunoAdd" type="email" class="form-control" id="emailAlunoAdd">
+            </div>
+
+            <div class="form-group">
+              <label for="telefoneAlunoAdd">Telefone </label>
+              <input name="telefoneAlunoAdd" type="text" class="form-control" id="telefoneAlunoAdd">
+            </div>
+
+            <button type="submit" class="btn btn-primary"> Adicionar </button>
+          </form> <!-- Fim do Form que adiciona alunos !-->
+
+          <hr />
+
+          <div id="Pesquisar">
+            <div class="row">     
+              <h3><span class=" glyphicon glyphicon-search"></span> Pesquisar Aluno </h3>
+                <input type="text" class="form-control" placeholder="" id="nomeAluno">
+            </div>
+            <input type="button" class="btn btn-primary" name="btnPesquisar" style="margin-top:10px;"value="Pesquisar" onclick="getAluno();"/>
+          </div>
+
             <hr/>
+
             <div id="Resultado"></div>
   </div>
      </div>
@@ -247,5 +211,5 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
 
 
 
-  </body>
+</body>
 </html>
