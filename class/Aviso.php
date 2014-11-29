@@ -14,7 +14,16 @@ $mensagem = $_POST['novoAviso'];
 
 $sql = "INSERT INTO `Avisos`(`idAviso`, `Remetente`, `idTurma`, `Mensagem`) VALUES ('$idAviso','$remetente','$destinatario','$mensagem')";
 
+
 $rs = $mysql->query($sql);
+if($sql){
+	$msg = 1;
+}
+else{
+	$msg = 2;
+}
+header('location:/admin/Avisos.php?msg='.$msg);
+
 
 
 }

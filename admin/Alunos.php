@@ -162,23 +162,14 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12" id="conteudo">
-
- <div class="row">
-    <div class="col-xs-3">
-      <h3> Adicionar Aviso </h3>
-
-
-    </div>
-       </div>
-          <br />
-          <?php
-           if(isset($_GET["msg"])){
+            <?php
+            if(isset($_GET["msg"])){
            @$msg = "";
            @$msg = $_GET["msg"];
 
-           if($msg=1){
+           if($msg==1){
             echo '<div class="alert alert-success" role="alert">';
-            echo 'Aviso enviado com sucesso!';
+            echo 'Aluno adicionado com sucesso!';
             echo '</div>';
            }else{
             
@@ -186,33 +177,65 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
             echo 'Aviso não enviado.';
             echo '</div>';
            }
-         
          }
           ?>
-          <form action ="../class/Aviso.php" name="adicionarAviso" method="POST">
-              <textarea id="novoAviso" name="novoAviso" class="form-control" rows="3"> </textarea>
 
-           <?php 
 
-        require_once('../class/mysql.php');
-        $mysql = new MySQL;
-        $sql = "SELECT * FROM turmas";
-        $rs = $mysql->query($sql);
-        echo '<select name="turmaSelecionada" id="turmaSelecionada">';
-        echo '<option VALUE="" selected="selected"></option>';
-        while($row=mysql_fetch_array($rs))
-        {
-            echo '<option value="' . htmlspecialchars($row['idTurma']) . '">' 
-                . htmlspecialchars($row['Turma']) 
-                . '</option>';
-        }
-        echo '</select>';
-     ?>
 
-     <br />
+        <h3><span class="glyphicon glyphicon-plus-sign"> </span> Adicionar Aluno</h3> 
+        <form action="../class/Aluno.php"  method="POST" role="form">
+          <div class="form-group">
+          <label for="nomeAlunoAdd">Nome: </label>
+          <input name="nomeAlunoAdd" id="nomeAlunoAdd" type="text" class="form-control" >
+          </div>
 
-    <input type="submit" class="btn btn-primary" name="addAviso" id="addAviso" style="margin-top:10px;" value="Adicionar" />
-    </form>
+          <!-- Pega as turmas no BD !-->
+          <div class="form-group">
+          <label for="turmaSelecionadaAddAluno">Turma: </label>
+          <?php 
+          require_once('../class/mysql.php');
+          $mysql = new MySQL;
+          $sql = "SELECT * FROM turmas";
+          $rs = $mysql->query($sql);
+          echo '<select name="turmaSelecionadaAddAluno" id="turmaSelecionadaAddAluno" class="form-control">';
+          //echo '<option VALUE="" selected="selected"></option>';
+          while($row=mysql_fetch_array($rs))
+          {
+              echo '<option value="' . htmlspecialchars($row['idTurma']) . '">' 
+                  . htmlspecialchars($row['Turma']) 
+                  . '</option>';
+          }
+          echo '</select>';
+          ?>
+          <div class="form-group">
+
+      
+
+          <div class="form-group">
+          <label for="emailAlunoAdd">E-mail: </label>
+          <input name="emailAlunoAdd" type="email" class="form-control" id="emailAlunoAdd">
+          </div>
+
+          <div class="form-group">
+          <label for="telefoneAlunoAdd">Telefone: </label>
+          <input name="telefoneAlunoAdd" type="text" class="form-control" id="telefoneAlunoAdd">
+          </div>
+
+          <button type="submit" class="btn btn-primary"> Adicionar </button>
+        </form> <!-- Fim do Form que adiciona alunos !-->
+        <hr />
+        <div id="Pesquisar">
+                <div class="row">
+                 
+                    <h3><span class=" glyphicon glyphicon-search"></span> Pesquisar Aluno: </h3>
+                    <input type="text" class="form-control" placeholder="" id="nomeAluno">
+                
+                </div>
+                <input type="button" class="btn btn-primary" name="btnPesquisar" style="margin-top:10px;"value="Pesquisar" onclick="getAluno();"/>
+            </div>
+            <hr/>
+            <div id="Resultado"></div>
+  </div>
      </div>
 
 

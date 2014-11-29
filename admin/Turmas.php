@@ -154,68 +154,27 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
 
 
 
-    </script>
-!-->
+    </script> !-->
 
        
 <div id="page-content-wrapper"> <!--Importante encapsular o conteúdo da página com page-content-wrapper caso contrário o conteúdo irá invadir a sidebar. -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12" id="conteudo">
-
- <div class="row">
+        
+<div id="adicionarTurma">
+  <div class="row">
     <div class="col-xs-3">
-      <h3> Adicionar Aviso </h3>
-
-
+        <h3> Adicionar Turma </h3>
     </div>
-       </div>
-          <br />
-          <?php
-           if(isset($_GET["msg"])){
-           @$msg = "";
-           @$msg = $_GET["msg"];
+        <input type="text" class="form-control" placeholder="" id="nomeTurma">
+    </div>
+      <input type="button" class="btn btn-primary" name="addAluno" id="addALuno" style="margin-top:10px;"value="Adcionar" onclick="cadastraTurma();"/>
+</div>
+        <br />
+<div id="resultado"></div>
 
-           if($msg=1){
-            echo '<div class="alert alert-success" role="alert">';
-            echo 'Aviso enviado com sucesso!';
-            echo '</div>';
-           }else{
-            
-            echo '<div class="alert alert-danger" role="alert">';
-            echo 'Aviso não enviado.';
-            echo '</div>';
-           }
-         
-         }
-          ?>
-          <form action ="../class/Aviso.php" name="adicionarAviso" method="POST">
-              <textarea id="novoAviso" name="novoAviso" class="form-control" rows="3"> </textarea>
-
-           <?php 
-
-        require_once('../class/mysql.php');
-        $mysql = new MySQL;
-        $sql = "SELECT * FROM turmas";
-        $rs = $mysql->query($sql);
-        echo '<select name="turmaSelecionada" id="turmaSelecionada">';
-        echo '<option VALUE="" selected="selected"></option>';
-        while($row=mysql_fetch_array($rs))
-        {
-            echo '<option value="' . htmlspecialchars($row['idTurma']) . '">' 
-                . htmlspecialchars($row['Turma']) 
-                . '</option>';
-        }
-        echo '</select>';
-     ?>
-
-     <br />
-
-    <input type="submit" class="btn btn-primary" name="addAviso" id="addAviso" style="margin-top:10px;" value="Adicionar" />
-    </form>
      </div>
-
-
     </div>
   </div>
  </div>

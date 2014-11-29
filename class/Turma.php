@@ -9,9 +9,13 @@ $sql = "INSERT INTO turmas(idTurma, Turma) VALUES('$idTurma', '$nome')";
 
 $rs = $mysql->query($sql);
 if(!$rs){
-echo "Turma não adicionada.";}
+sleep(2);
+echo '<div class="alert alert-success" role="alert"> </div>';}
 else{
-echo "Turma adicionada - ".$nome;}
+echo '<div class="alert alert-success" role="alert">'.'Turma adicionada - ';
+echo $nome;
+echo '</div>';
+}
 
 }
 

@@ -1,5 +1,49 @@
 <?php 
 
+if(isset($_POST["nomeAlunoAdd"])){
+require('mysql.php');
+$mysql = new MySQL;
+/*
+Aluno é composto de:
+
+idAluno = 6 dígitos MD5
+nomeAluno = formulário
+turmaAluno = tabela "Turmas"
+e-mail = formulario
+telefone = formulario
+
+*/
+$nomeAluno = $_POST["nomeAlunoAdd"];
+$telefoneAluno = $_POST["telefoneAlunoAdd"];
+$emailAluno = $_POST["emailAlunoAdd"];
+$randId = $nomeAluno.time();
+$idAluno = substr(md5($randId),0,6);
+$turmaAluno = $_POST["turmaSelecionadaAddAluno"];
+
+
+echo $idAluno;
+echo $nomeAluno;
+
+echo $turmaAluno;
+
+echo $emailAluno;
+
+echo $telefoneAluno;
+$sql = "INSERT INTO alunos(idAluno, nomeAluno, turmaAluno, emailAluno, telefoneAluno) VALUES ('$idAluno', '$nomeAluno', '$turmaAluno', '$emailAluno', '$telefoneAluno')";
+
+$rs = $mysql->query($sql);
+
+if($rs){
+	$msg=1;
+}
+else{
+	$msg=2;
+}
+
+header('location:/admin/Alunos.php?msg='.$msg);
+
+}
+
 if(isset($_GET["nomeAluno"])){
 	$nome = $_GET["nomeAluno"];
 
@@ -29,6 +73,8 @@ if(isset($_GET["nomeAluno"])){
 							<th>ID </th>
 							<th>Nome </th>
 							<th>Turma </th>
+							<th> E-mail </th>
+							<th> Telefone </th>
 							</tr>
 						</thead>
 						<tbody>
@@ -39,6 +85,10 @@ if(isset($_GET["nomeAluno"])){
 			$return.="<td>" . utf8_encode($linha["idAluno"]) . "</td>";
 			$return.="<td>" . utf8_encode($linha["nomeAluno"]) . "</td>";
 			$return.="<td>" . utf8_encode($linha["turmaAluno"]) . "</td>";
+			$return.="<td>" . utf8_encode($linha["emailAluno"]) . "</td>";
+			$return.="<td>" . utf8_encode($linha["telefoneAluno"]) . "</td>";
+
+
 			$return.="</tr>";
 		}
 		echo $return.="</tbody></table>";

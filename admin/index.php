@@ -55,10 +55,10 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="showTurmas">Turmas</a>
+                    <a href="Turmas.php" id="showTurmas">Turmas</a>
                 </li>
                 <li>
-                    <a href="#" id="showAlunos">Alunos</a>
+                    <a href="Alunos.php" id="showAlunos">Alunos</a>
                 </li>
                 <li>
                     <a href="Avisos.php" id="showAvisos">Avisos</a>
@@ -104,7 +104,7 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opções <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="#"> <i class="glyphicon glyphicon-cog"></i>  <i class="divider"></i>Editar Perfil</a></li>
-             <li><a href="../../logout.php"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+             <li><a href="logout.php"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -113,7 +113,7 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
       </nav>
       </div>
 
-      <!-- Funções do Sidebar -->
+       <!--Funções do Sidebar 
       <script type="text/javascript">
       $(document).ready(function(){
         $("#showTurmas").click(function(){
@@ -132,7 +132,6 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
         });
       });
 
-http://www.baixou.com.br/produtos/baixas/notebooks-laptops/1/preco
 
 
        $(document).ready(function(){
@@ -153,24 +152,26 @@ http://www.baixou.com.br/produtos/baixas/notebooks-laptops/1/preco
         });
       });
 
-//        $(document).ready(function(){
-//         $("#showAvisos").click(function(){
-//           $("#conteudo").html('<div id="adicionarAvisos">\
-//   <div class="row">\
-//     <div class="col-xs-3">\
-//             <h3> Adicionar Aviso </h3>\
-//             <textarea class="form-control" rows="3" id="novoAviso"></textarea>\
-//         </div>\
-//     </div>\
-//       <input type="button" class="btn btn-primary" name="addAviso" id="addAviso" style="margin-top:10px;"value="Adicionar" onclick="cadastraAviso();"/>\
-// </div>\
-//             <hr/>\
-// <div id="resultado"></div>\
-// ');
-//         });
-//       });
+       $(document).ready(function(){
+        $("#showAvisos").click(function(){
+          $("#conteudo").html('<div id="adicionarAvisos">\
+  <div class="row">\
+    <div class="col-xs-3">\
+            <h3> Adicionar Aviso </h3>\
+            <textarea class="form-control" rows="3" id="novoAviso"></textarea>\
+        </div>\
+    </div>\
+      <input type="button" class="btn btn-primary" name="addAviso" id="addAviso" style="margin-top:10px;"value="Adicionar" onclick="cadastraAviso();"/>\
+</div>\
+            <hr/>\
+<div id="resultado"></div>\
+');
+        });
+      });
 
     </script>
+
+!-->
 
 
        
@@ -178,7 +179,7 @@ http://www.baixou.com.br/produtos/baixas/notebooks-laptops/1/preco
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12" id="conteudo">
-   5 professores.
+   Dashboard.
     </div>
   </div>
  </div>
