@@ -114,58 +114,78 @@ session_start();
       </nav>
       </div>
 
-      <!-- Funções do Sidebar 
-      <script type="text/javascript">
-      $(document).ready(function(){
-        $("#showTurmas").click(function(){
-          $("#conteudo").html('<div id="adicionarTurma">\
-  <div class="row">\
-    <div class="col-xs-3">\
-            <h3> Adicionar Turma </h3>\
-            <input type="text" class="form-control" placeholder="" id="nomeTurma">\
-        </div>\
-    </div>\
-      <input type="button" class="btn btn-primary" name="addAluno" id="addALuno" style="margin-top:10px;"value="Adcionar" onclick="cadastraTurma();"/>\
-</div>\
-            <hr/>\
-<div id="resultado"></div>\
-');
-        });
-      });
-
-
-
-
-       $(document).ready(function(){
-        $("#showAlunos").click(function(){
-          $("#conteudo").html('<div id="Pesquisar">\
-                <div class="row">\
-                  <div class="col-xs-3">\
-                    <h3> Nome do Aluno: </h3>\
-                    <input type="text" class="form-control" placeholder="" id="nomeAluno">\
-                  </div>\
-                </div>\
-                <input type="button" class="btn btn-primary" name="btnPesquisar" style="margin-top:10px;"value="Pesquisar" onclick="getAluno();"/>\
-            </div>\
-            <hr/>\
-            <h2>Resultados da pesquisa:</h2>\
-            <div id="Resultado"></div>\
-  </div>');
-        });
-      });
-
-
-
-    </script>
-!-->
-
        
 <div id="page-content-wrapper"> <!--Importante encapsular o conteúdo da página com page-content-wrapper caso contrário o conteúdo irá invadir a sidebar. -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12" id="conteudo">
+      <h3><span class="glyphicon glyphicon-upload"></span> Enviar Arquivo para Turma </h3>
+        <hr />
+        <?php
+      if(isset($_GET["msg"])){
+        @$msg = "";
+        @$msg = $_GET["msg"];
 
-<h2>Aqui terá um form para adicionar um professor, mas antes, vamos cadastrar disciplinas.</h2>
+        $idEnvio = $_GET["idEnvio"];
+        $sql = "SELECT * FROM envios WHERE idEnvio = '$idEnvio'";
+        require_once('../class/mysql.php');
+        $mysql = new MySQL;
+        $rquery = $mysql->query($sql);
+        $dados = mysql_fetch_array($rquery);
+
+
+
+          if($msg==1){
+            echo '<div class="alert alert-success" role="alert">';
+            echo 'Arquivo enviado com sucesso!<br />';
+            
+            echo '<b> Nome: </b>'.$dados["tituloEnvio"];
+
+
+
+            echo '</div>';
+            }else{
+              echo '<div class="alert alert-danger" role="alert">';
+              echo 'Aluno não adicionado.';
+              echo '</div>';
+              }
+      }
+      ?>
+        <form action="../class/Envio.php?" method="POST" enctype="multipart/form-data" role="form">
+        <div class="form-group">
+        <label for="tituloArquivoEnviar">Título </label>
+        <input type="text" id="tituloArquivoEnviar" name="tituloArquivoEnviar">
+        </div>
+
+        <div class="form-group">
+        <label for="arquivoEnviar">Arquivo </label>
+        <input type="file" id="arquivoEnviar" name="arquivoEnviar">
+        <p class="help-block"> O tamanho máximo para envio é 15mb. </p>
+        </div>
+
+         <div class="form-group">
+            <label for="turmaSelecionadaArquivoEnviar">Turma </label>
+            <?php 
+            require_once('../class/mysql.php');
+            $mysql = new MySQL;
+            $sql = "SELECT * FROM turmas";
+            $rs = $mysql->query($sql);
+            echo '<select name="turmaSelecionadaArquivoEnviar" id="turmaSelecionadaArquivoEnviar">';
+            echo '<option VALUE="" selected="selected"></option>';
+            while($row=mysql_fetch_array($rs))
+            {
+                echo '<option value="' . htmlspecialchars($row['idTurma']) . '">' 
+                    . htmlspecialchars($row['Turma']) 
+                    . '</option>';
+            }
+            echo '</select>';
+         ?>
+         </div>
+         
+         <input type="hidden" name="remetente" value="<?php print $_SESSION['nomeAdmin']; ?>">
+         
+         <button class="btn btn-primary" type="submit">Upload</button>
+        </form>
 
      </div>
     </div>

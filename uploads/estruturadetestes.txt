@@ -1,0 +1,21 @@
+#Turmas
+
+3INFO
+	#Alunos
+
+	Patrick Maia 
+	Rodrigo Marques
+	Caio Caravalho
+
+2INFO
+	#Alunos
+	
+	Bruno Paiva
+	Fernanda Mattos
+	Faraó 
+
+#Professores
+
+	Felipe Nogarol - Física
+	Ademar - Biologia
+	Wellerson - Matemática
