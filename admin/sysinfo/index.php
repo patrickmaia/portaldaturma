@@ -1,11 +1,15 @@
 <?php
+
+session_name('admin');
 session_start();
-if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a sessão, caso falhe redireciona pra página de login.
+ if ( !isset($_SESSION['loginAdmin']) and !isset($_SESSION['senhaAdmin']) ) { //Valida a sessão, caso falhe redireciona pra página de login.
     session_destroy();
     unset ($_SESSION['login']);
     unset ($_SESSION['senha']);
-    header('location:../login.php');
+    header('location:login.php');
 }
+
+
 
 /**
  * start page for webaccess

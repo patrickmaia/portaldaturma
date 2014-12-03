@@ -1,14 +1,11 @@
 <?PHP
-
-//Valida a sessão, caso falhe redireciona pra página de login.
+session_name('aluno');
 session_start();
-if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { 
+if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) { 
     session_destroy();
     unset ($_SESSION['login']);
     unset ($_SESSION['senha']);
     header('location:../index.php');
-
-
 }
 
 ?>
@@ -19,7 +16,7 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Portal da Turma - Aluno - Home</title>
+    <title>Aluno - Home</title>
 
     <!-- jQuery -->
     <script src="../res/js/jquery-2.1.0.min.js"></script>
@@ -63,7 +60,7 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) {
                 </li>
   
                 <li>
-                    <a href="#" id="showNotas">Notas</a>
+                    <a href="Notas.php" id="showNotas">Notas</a>
                 </li>
               
             </ul>
@@ -116,7 +113,7 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) {
     <div class="row">
       <div class="col-lg-12" id="conteudo">
         <h3> Seja bem vindo, <?php echo $_SESSION['nomeAluno'] ?>!</h3>
-        <?php echo $_SESSION['turmaAluno']; ?>
+        <?php echo $_SESSION['idAluno']; ?>
 
     </div>
   </div>

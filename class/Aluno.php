@@ -1,5 +1,7 @@
 <?php 
 
+session_name('admin');
+session_start();
 if(isset($_POST["nomeAlunoAdd"])){
 require('mysql.php');
 $mysql = new MySQL;

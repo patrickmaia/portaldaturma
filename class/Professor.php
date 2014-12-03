@@ -1,51 +1,35 @@
 <?php 
 
-if(isset($_GET["nomeProfessor"])){
-	$nome = $_GET["nomeProfessor"];
+if(isset($_GET["nomeProfessorAdd"])){
+require('mysql.php');
+$mysql = new MySQL;
 
-	$server = "localhost";
-	$user = "root";
-	$senha = "root";
-	$base = "portaldaturma";
+function geraSenha(){
+$caracteres = "0123456789";
+$shuffle = substr(str_shuffle($caracteres),0,6);
 
-	$conexao = mysql_connect($server,$user,$senha) or die("Erro na conexão ");
-	mysql_select_db($base);
-
-	if(empty($nome)){
-		$sql = "SELECT * FROM professores";
-	}else{
-		$nome.="%";
-		$sql = "SELECT * FROM professores WHERE nomeProf LIKE '$nome'";
-		
-	}
-	sleep(1);
-	$result = mysql_query($sql);
-	$cont = mysql_affected_rows($conexao);
-
-	if($cont>0){
-		$tabela = "<table class='table table-striped'>
-						<thead>
-							<tr>
-							<th>ID </th>
-							<th>Nome </th>
-							<th>Disciplina </th>
-							</tr>
-						</thead>
-						<tbody>
-						<tr>";
-		$return = "$tabela";
-
-		while($linha = mysql_fetch_array($result)){
-			$return.="<td>" . utf8_encode($linha["idProf"]) . "</td>";
-			$return.="<td>" . utf8_encode($linha["nomeProf"]) . "</td>";
-			$return.="<td>" . utf8_encode($linha["Disciplina"]) . "</td>";
-			$return.="</tr>";
-		}
-		echo $return.="</tbody></table>";
-	} else{
-		echo "Não foram encontrados.".$nome;
-	}
+return $shuffle;
 }
 
+$nomeProfessor = $_GET["nomeProfessorAdd"];
+$randHash = $nomeProfessor.time();
+$idProfessor = substr(md5($randHash),0,6);
+$matriculaProfessor = $_GET["matriculaProfessorAdd"];
+$senhaProfessor = geraSenha();
+$emailProfessor = $_GET["emailProfessorAdd"];
+$telefoneProfessor = $_GET["telefoneProfessorAdd"];
 
+$sqlInserir = "INSERT INTO professores(idProfessor, nomeProfessor, matriculaProfessor, senhaProfessor, emailProfessor, telefoneProfessor) VALUES ('$idProfessor', '$nomeProfessor', '$matriculaProfessor', '$senhaProfessor', '$emailProfessor','$telefoneProfessor')";
+$result = $mysql->query($sqlInserir);
+
+if ($result) {
+	$msg = 1;
+} else {
+	$msg = 2;
+}
+
+header('location:/admin/Professores.php?msg='.$msg.'&idProfessor='.$idProfessor);
+
+
+}
  ?>

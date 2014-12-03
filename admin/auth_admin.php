@@ -13,14 +13,16 @@ $stmt->execute();
 $obj= $stmt->fetchObject();
 
 if($obj){
+	session_name('admin');
 	session_start();
 	//Armazena detalhes cruciais na sessão iniciada.
-	$_SESSION['login'] = $login;
-	$_SESSION['senha'] = $senha;	
+	$_SESSION['loginAdmin'] = $login;
+	$_SESSION['senhaAdmin'] = $senha;	
 	$_SESSION['idAdmin']=$obj->idAdmin;
 	$_SESSION['nomeAdmin']=$obj->nomeAdmin;
 	$_SESSION['emailAdmin']=$obj->emailAdmin;
 	$_SESSION['turmaAdmin']=$obj->turmaAdmin;
+
 	header('location:index.php');
 
 } else{

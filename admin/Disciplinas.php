@@ -10,13 +10,13 @@ session_start();
 
 
 ?>
+
 <!DOCTYPE html>
-<html lang="pt">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Administrador - Alunos</title>
+    <title>Administrador - Disciplinas</title>
     <!-- jQuery -->
     <script src="/res/js/jquery-2.1.0.min.js"></script>
 
@@ -28,10 +28,11 @@ session_start();
     <link rel="stylesheet" href="/res/css/bootstrapValidator.css"/>
     <script type="text/javascript" src="/res/js/bootstrapValidator.js"></script>
 
-    <!-- Simple Sidebar-->
+        <!-- Simple Sidebar-->
     <link rel="stylesheet" href="../res/css/simple-sidebar.css" >
     <!-- Ajax !-->
     <script type="text/javascript" src="../res/js/ajax.js"></script>
+
     <!-- -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -40,9 +41,12 @@ session_start();
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    
   </head>
   <body>
   <div id="wrapper">
+
   <!-- Sidebar -->
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
@@ -70,11 +74,10 @@ session_start();
       </ul>
     </div>
       <!-- Sidebar !-->
-
 <div id="page-content-wrapper">
-  <!-- NavBar !-->
   <nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
           <span class="sr-only">Toggle navigation</span>
@@ -108,115 +111,79 @@ session_start();
       </div><!-- /.navbar-collapse -->
       </div>
       </nav>
-      <!-- NavBar !-->
-</div>
+      </div>
 
+
+       
 <div id="page-content-wrapper"> <!--Importante encapsular o conteúdo da página com page-content-wrapper caso contrário o conteúdo irá invadir a sidebar. -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12" id="conteudo">
-      <?php
-      if(isset($_GET["msg"])){
-        @$msg = "";
-        @$msg = $_GET["msg"];
 
-        //Pegar os dados do aluno inserido para imprimir login e senha.
-        $alunoCriado = $_GET["idAluno"];
-        $sql = "SELECT * FROM alunos WHERE idAluno = '$alunoCriado'";
-        require_once('../class/mysql.php');
-        $mysql = new MySQL;
-        $rquery = $mysql->query($sql);
-        $dados = mysql_fetch_array($rquery);
+    <form action="../class/Disciplina.php"  method="POST" role="form">
+    <div id="resultadoAdd">
+    <?php
+           if(isset($_GET["msg"])){
+           @$msg = "";
+           @$msg = $_GET["msg"];
 
-
-
-          if($msg==1){
+           if($msg=1){
             echo '<div class="alert alert-success" role="alert">';
-            echo 'Aluno adicionado com sucesso!<br />';
-            
-            echo '<b> Nome: </b>'.$dados["nomeAluno"];
-            echo ' |<b> Login: </b>'.$dados["matriculaAluno"];
-            echo ' |<b> Senha: </b>'.$dados["senhaAluno"];
-
-
+            echo 'Disciplina adicionada com sucesso!';
             echo '</div>';
-            }else{
-              echo '<div class="alert alert-danger" role="alert">';
-              echo 'Aluno não adicionado.';
-              echo '</div>';
-              }
-      }
-      ?>
-          <h3><span class="glyphicon glyphicon-plus-sign"> </span> Adicionar Aluno</h3> 
-          <form action="../class/Aluno.php"  method="POST" role="form">
+           }else{
+            
+            echo '<div class="alert alert-danger" role="alert">';
+            echo 'Disciplina não adicionada.';
+            echo '</div>';
+           }
+         
+         }
+          ?>
+    </div>
             <div class="form-group">
-              <label for="nomeAlunoAdd">Nome </label>
-              <input name="nomeAlunoAdd" id="nomeAlunoAdd" type="text" class="form-control" >
+              <label for="nomeDisciplinaAdd">Nome Disciplina </label>
+              <input name="nomeDisciplinaAdd" id="nomeDisciplinaAdd" type="text" class="form-control" >
             </div>
 
-            <div class="form-group">
-              <label for="turmaSelecionadaAddAluno">Turma </label>
+               <div class="form-group">
+              <label for="professorSelecionadoDisciplinaAdd">Professor Responsável </label>
                 <?php 
                 require_once('../class/mysql.php');
                 $mysql = new MySQL;
-                $sql = "SELECT * FROM turmas";
+                $sql = "SELECT * FROM professores";
                 $rs = $mysql->query($sql);
-                echo '<select name="turmaSelecionadaAddAluno" id="turmaSelecionadaAddAluno" class="form-control">';
+                echo '<select name="professorSelecionadoDisciplinaAdd" id="professorSelecionadoDisciplinaAdd" class="form-control">';
                 while($row=mysql_fetch_array($rs))
                 {
-                    echo '<option value="' . htmlspecialchars($row['idTurma']) . '">' 
-                        . htmlspecialchars($row['Turma']) 
+                    echo '<option value="' . htmlspecialchars($row['idProfessor']) . '">' 
+                        . htmlspecialchars($row['nomeProfessor']) 
                         . '</option>';
                 }
                 echo '</select>';
                 ?>
             </div>
-
             <div class="form-group">
-              <label for="matriculaAlunoAdd">Matrícula </label>
-              <input name="matriculaAlunoAdd" type="text" class="form-control" id="matriculaAlunoAdd">
-            </div>
-
-            <div class="form-group">
-              <label for="emailAlunoAdd">E-mail </label>
-              <input name="emailAlunoAdd" type="email" class="form-control" id="emailAlunoAdd">
-            </div>
-
-            <div class="form-group">
-              <label for="telefoneAlunoAdd">Telefone </label>
-              <input name="telefoneAlunoAdd" type="text" class="form-control" id="telefoneAlunoAdd">
-            </div>
-
-            <button type="submit" class="btn btn-primary"> Adicionar </button>
-          </form> <!-- Fim do Form que adiciona alunos !-->
-
-          <hr />
-
-          <div id="Pesquisar">
-            <div class="row">     
-              <h3><span class=" glyphicon glyphicon-search"></span> Pesquisar Aluno </h3>
-                <input type="text" class="form-control" placeholder="" id="nomeAluno">
-              <input type="button" class="btn btn-primary" name="btnPesquisar" style="margin-top:10px;"value="Pesquisar" onclick="getAluno();"/>
-
-            </div>
-          </div>
-
-            <div id="Resultado"></div>
-            <hr />
-          <div id="Deletar">
-            <div class="row">     
-              <h3><span class=" glyphicon glyphicon-minus-sign"></span> Remover Aluno </h3>
-              <input type="text" class="form-control" id="idAlunoRemover">
-              <input type="button" class="btn btn-primary" name="btnPesquisar" style="margin-top:10px" value="Remover" onclick"getAluno();"/>
-            </div>
-          </div>
-          <div id="ResultadoRemover"></div>
-            
-
-  </div>
-  </div>
-
-
+            <label for="turmaSelecionadaDisciplinaAdd">Turma </label>
+            <?php 
+            require_once('../class/mysql.php');
+            $mysql = new MySQL;
+            $sql = "SELECT * FROM turmas";
+            $rs = $mysql->query($sql);
+            echo '<select name="turmaSelecionadaDisciplinaAdd" id="turmaSelecionadaDisciplinaAdd">';
+            echo '<option VALUE="" selected="selected"></option>';
+            while($row=mysql_fetch_array($rs))
+            {
+                echo '<option value="' . htmlspecialchars($row['idTurma']) . '">' 
+                    . htmlspecialchars($row['Turma']) 
+                    . '</option>';
+            }
+            echo '</select>';
+         ?>
+         </div>
+            <button class="btn btn-primary" type="submit">Adicionar</button>
+        </form>
+     </div>
     </div>
   </div>
  </div>
@@ -225,5 +192,5 @@ session_start();
 
 
 
-</body>
+  </body>
 </html>

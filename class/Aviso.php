@@ -5,6 +5,7 @@ require('mysql.php');
 
 if(isset($_POST['novoAviso'])){
 $mysql = new MySQL;
+session_name('admin');
 session_start();
 
 $idAviso = rand(1,10);

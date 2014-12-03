@@ -1,11 +1,10 @@
 <?PHP
-
-//Valida a sessão, caso falhe redireciona pra página de login.
+session_name('professor');
 session_start();
-if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { 
+if ( !isset($_SESSION['loginProfessor']) and !isset($_SESSION['senhaProfessor']) ) { 
     session_destroy();
-    unset ($_SESSION['login']);
-    unset ($_SESSION['senha']);
+    unset ($_SESSION['loginProfessor']);
+    unset ($_SESSION['senhaProfessor']);
     header('location:../index.php');
 }
 
@@ -17,7 +16,9 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Portal da Turma - Home - Professor</title>
+    <title>Home - Professor</title>
+    <link rel="shortcut icon" href="../res/transparent.gif" type="image/x-icon">
+    <link rel="icon" href="../res/transparent.gif" type="image/x-icon">
 
     <!-- jQuery -->
     <script src="../res/js/jquery-2.1.0.min.js"></script>
@@ -54,19 +55,14 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) {
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="Avisos">Avisos</a>
+                    <a href="Avisos.php" id="showAvisos">Avisos</a>
+                </li>
+               
+                <li>
+                    <a href="Envios.php">Envios</a>
                 </li>
                 <li>
-                    <a href="#" id="showAlunos">Alunos</a>
-                </li>
-                <li>
-                    <a href="#" id="showDisciplinas">Disciplinas</a>
-                </li>
-                <li>
-                    <a href="#">Conteúdo</a>
-                </li>
-                <li>
-                    <a href="#">Mensagens</a>
+                    <a href="Notas.php">Notas</a>
                 </li>
               
             </ul>
@@ -92,7 +88,6 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) {
         <ul class="nav navbar-nav">
           <li class="active"><a href="#"><i class="glyphicon glyphicon-cloud"></i> Dashboard</a></li>
           <li><a href="#"><i class="glyphicon glyphicon-user"></i> Perfil</a></li>
-          <li><a href="adminGerenciar.php"><i class="glyphicon glyphicon-list-alt"></i> Gerenciar</a></li>
 
         </ul>
         

@@ -1,0 +1,29 @@
+#	Correções #
+	# Dias para a Entrega: 12 #
+
+---- Início da Versão 1.0 
+
+
+1) Quando uma sessão de aluno está ativa, ela também é válida para admin
+ Sugestão: Adicionar um dígito verificador alfanúmerico para cada sessão, assim
+não será possível invadir as sessões alheias. -> RESOLVIDO
+
+2) Comentar a linha de erro no PHP para desabilitar os notices -> Apenas quando fazer o deploy.
+
+
+
+4) Começar a fazer uma landing page para o projeto.
+
+5) Implementar a base do algoritmo de envio de avisos no sistema de envio de arquivos.
+
+6) Adicionar uma tabela para visualização das turmas existentes na seção Turma.
+	Sugestão: Pegar o código de impressão de tabelas na seção Alunos.
+
+---- Fim da Versão 1.0 - Algoritmo de envio de avisos totalmente funcional.
+
+---- Início da Versão 1.1 - Foco: Envio de Arquivos
+
+---- Início da Versão 1.2 - Foco: Portal do Aluno - Visualizando: dados do aluno, dados da turma que ele está incluso, aviso para a turma dele (SELECT * FROM Avisos WHERE idTurma = "turmaDoAluno"), listas para a turma dele, partindo do mesmo princípio do recebimento de avisos.
+
+
+

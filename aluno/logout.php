@@ -1,6 +1,8 @@
 <?php
+session_name('aluno');
 session_start();
-session_regenerate_id();
-session_destroy();
-header('location:index.php');
+unset($_SESSION['aluno']);
+unset($_SESSION['loginAluno']);
+unset($_SESSION['senhaAluno']);
+header('location:../index.php');
 ?>

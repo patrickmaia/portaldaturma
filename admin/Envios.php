@@ -1,21 +1,22 @@
 <?PHP
-session_name('aluno');
+session_name('admin');
 session_start();
-if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) { 
+ if ( !isset($_SESSION['loginAdmin']) and !isset($_SESSION['senhaAdmin']) ) { //Valida a sessão, caso falhe redireciona pra página de login.
     session_destroy();
     unset ($_SESSION['login']);
     unset ($_SESSION['senha']);
-    header('location:../index.php');
+    header('location:login.php');
 }
-?>
 
+
+?>
 
 <!DOCTYPE html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Aluno - Avisos</title>
+    <title>Administrador - Envios</title>
     <!-- jQuery -->
     <script src="/res/js/jquery-2.1.0.min.js"></script>
 
@@ -46,28 +47,33 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
   <body>
   <div id="wrapper">
 
-<!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        <?php echo $_SESSION['nomeAluno'] ?>
-                    </a>
-                </li>
-                <li>
-                    <a href="Avisos.php" id="showAvisos">Avisos</a>
-                </li>
-                <li>
-                    <a href="#" id="showEnvios">Envios</a>
-                </li>
-  
-                <li>
-                    <a href="Notas.php" id="showNotas">Notas</a>
-                </li>
-              
-            </ul>
-        </div>
-      <!-- Sidebar -->
+  <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+            <a href="index.php">  Administrador</a>
+          </li>
+          <li>
+            <a href="Turmas.php" id="showTurmas">Turmas</a>
+          </li>
+          <li>
+            <a href="Alunos.php" id="showAlunos">Alunos</a>
+          </li>
+          <li>
+            <a href="Avisos.php" id="showAvisos">Avisos</a>
+          </li>
+          <li>
+            <a href="Envios.php" id="showEnvios">Envios</a>
+          </li>
+          <li>
+            <a href="Professores.php" id="showProfessores">Professores</a>
+          </li>
+          <li>
+            <a href="Disciplinas.php" id="showDisciplinas">Disciplinas</a>
+          </li>
+      </ul>
+    </div>
+      <!-- Sidebar !-->
 
 <div id="page-content-wrapper">
   <nav class="navbar navbar-inverse" role="navigation">
@@ -88,7 +94,7 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
         <ul class="nav navbar-nav">
           <li class="active"><a href="#"><i class="glyphicon glyphicon-cloud"></i> Dashboard</a></li>
           <li><a href="#"><i class="glyphicon glyphicon-user"></i> Perfil</a></li>
-          <li><a href="adminGerenciar.php"><i class="glyphicon glyphicon-list-alt"></i> Gerenciar</a></li>
+          <li><a href="sysinfo/"><i class="glyphicon glyphicon-list-alt"></i> Gerenciar</a></li>
 
         </ul>
         
@@ -108,7 +114,50 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
       </nav>
       </div>
 
-     
+      <!-- Funções do Sidebar 
+      <script type="text/javascript">
+      $(document).ready(function(){
+        $("#showTurmas").click(function(){
+          $("#conteudo").html('<div id="adicionarTurma">\
+  <div class="row">\
+    <div class="col-xs-3">\
+            <h3> Adicionar Turma </h3>\
+            <input type="text" class="form-control" placeholder="" id="nomeTurma">\
+        </div>\
+    </div>\
+      <input type="button" class="btn btn-primary" name="addAluno" id="addALuno" style="margin-top:10px;"value="Adcionar" onclick="cadastraTurma();"/>\
+</div>\
+            <hr/>\
+<div id="resultado"></div>\
+');
+        });
+      });
+
+
+
+
+       $(document).ready(function(){
+        $("#showAlunos").click(function(){
+          $("#conteudo").html('<div id="Pesquisar">\
+                <div class="row">\
+                  <div class="col-xs-3">\
+                    <h3> Nome do Aluno: </h3>\
+                    <input type="text" class="form-control" placeholder="" id="nomeAluno">\
+                  </div>\
+                </div>\
+                <input type="button" class="btn btn-primary" name="btnPesquisar" style="margin-top:10px;"value="Pesquisar" onclick="getAluno();"/>\
+            </div>\
+            <hr/>\
+            <h2>Resultados da pesquisa:</h2>\
+            <div id="Resultado"></div>\
+  </div>');
+        });
+      });
+
+
+
+    </script>
+!-->
 
        
 <div id="page-content-wrapper"> <!--Importante encapsular o conteúdo da página com page-content-wrapper caso contrário o conteúdo irá invadir a sidebar. -->
@@ -116,57 +165,7 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
     <div class="row">
       <div class="col-lg-12" id="conteudo">
 
-  <div class="row">
-    
-      <h3><span class="glyphicon glyphicon-inbox"> </span> Avisos  </h3>
-<?php 
-
-
-$turmaAluno = $_SESSION['turmaAluno'];
-$sql = "SELECT * FROM Avisos WHERE idTurma = '$turmaAluno'";
-
-$server = "localhost";
-$user = "root";
-$senha = "root";
-$base = "portaldaturma";
-
-  $conexao = mysql_connect($server,$user,$senha) or die("Erro na conexão ");
-  mysql_select_db($base);
-
-  $result = mysql_query($sql);
-  $cont = mysql_affected_rows($conexao);
-
-  if($cont>0){
-    $tabela = "<table class='table table-hover'>
-            <thead>
-              <tr>
-              <th>Remetente </th>
-              <th>Mensagem </th>
-       
-              </tr>
-            </thead>
-            <tbody>
-            <tr>";
-    $return = "$tabela";
-
-    while($linha = mysql_fetch_array($result)){
-      $return.="<td>" . utf8_encode($linha["Remetente"]) . "</td>";
-      $return.="<td>" . utf8_encode($linha["Mensagem"]) . "</td>";
-
-      $return.="</tr>";
-    }
-    echo $return.="</tbody></table>";
-  } else{
-    echo "Não há avisos para sua turma.".@$nome;
-  }
-
-
-
-
- ?>
-
-  
-  </div>
+<h2>Aqui terá um form para adicionar um professor, mas antes, vamos cadastrar disciplinas.</h2>
 
      </div>
     </div>

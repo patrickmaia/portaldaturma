@@ -7,36 +7,34 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
     unset ($_SESSION['senha']);
     header('location:../index.php');
 }
+
 ?>
 
-
 <!DOCTYPE html>
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Aluno - Avisos</title>
+    <title>Aluno - Notas</title>
+
     <!-- jQuery -->
-    <script src="/res/js/jquery-2.1.0.min.js"></script>
-
-    <!-- Bootstrap -->
-    <script src="/res/js/bootstrap.min.js"></script>
-    <link href="/res/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Validator -->
-    <link rel="stylesheet" href="/res/css/bootstrapValidator.css"/>
-    <script type="text/javascript" src="/res/js/bootstrapValidator.js"></script>
-
-        <!-- Simple Sidebar-->
-    <link rel="stylesheet" href="../res/css/simple-sidebar.css" >
+    <script src="../res/js/jquery-2.1.0.min.js"></script>
     <!-- Ajax !-->
     <script type="text/javascript" src="../res/js/ajax.js"></script>
+    <!-- Bootstrap !-->
+    <link href="../res/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="../res/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Validator -->
+    <link rel="stylesheet" href="../res/css/bootstrapValidator.css"/>
+    <script type="text/javascript" src="../res/js/bootstrapValidator.js"></script>
+    <!-- Simple Sidebar-->
+    <link rel="stylesheet" href="../res/css/simple-sidebar.css" >
 
-    <!-- -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>s
+    <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -108,67 +106,82 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
       </nav>
       </div>
 
-     
 
        
 <div id="page-content-wrapper"> <!--Importante encapsular o conteúdo da página com page-content-wrapper caso contrário o conteúdo irá invadir a sidebar. -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12" id="conteudo">
-
-  <div class="row">
-    
-      <h3><span class="glyphicon glyphicon-inbox"> </span> Avisos  </h3>
-<?php 
-
-
-$turmaAluno = $_SESSION['turmaAluno'];
-$sql = "SELECT * FROM Avisos WHERE idTurma = '$turmaAluno'";
-
-$server = "localhost";
-$user = "root";
-$senha = "root";
-$base = "portaldaturma";
-
-  $conexao = mysql_connect($server,$user,$senha) or die("Erro na conexão ");
-  mysql_select_db($base);
-
-  $result = mysql_query($sql);
-  $cont = mysql_affected_rows($conexao);
-
-  if($cont>0){
-    $tabela = "<table class='table table-hover'>
-            <thead>
-              <tr>
-              <th>Remetente </th>
-              <th>Mensagem </th>
-       
-              </tr>
-            </thead>
-            <tbody>
-            <tr>";
-    $return = "$tabela";
+        <?php echo "<h1>".$_SESSION['nomeAluno']." - Notas </h1>" ?>
+    <table class='table table-striped'>  
+    <thead>
+                  <tr>
+                  <th>Disciplina </th>
+                  <th>1º Bimestre </th>
+                  <th>2º Bimestre</th>
+                  <th>3º Bimestre</th>
+                  <th>4º Bimestre</th>
+                  <th>Média</th>
+                  </tr>
+    </thead>
+    <tbody>
+    <?php 
+    include('../class/mysql.php');
+    $mysql = new MySQL;
+    $turmaAluno = $_SESSION['turmaAluno'];
+    $idAluno = $_SESSION['idAluno'];
+    $query = "SELECT * FROM disciplinas WHERE idTurma = '$turmaAluno'";
+    $server = "localhost";
+    $user = "root";
+    $senha = "root";
+    $base = "portaldaturma";
+// Tabela Notas = idDisciplina + idAluno + VARCHAR Notas [7-8-9-6.5] e depois quebra essa string num array de 4 posições. Eureka!
+    $conexao = mysql_connect($server,$user,$senha) or die("Erro na conexão ");
+    mysql_select_db($base);
+    $result = mysql_query($query);
 
     while($linha = mysql_fetch_array($result)){
-      $return.="<td>" . utf8_encode($linha["Remetente"]) . "</td>";
-      $return.="<td>" . utf8_encode($linha["Mensagem"]) . "</td>";
+      $idDisciplina = $linha['idDisciplina'];
+      $querynotas = "SELECT * FROM notas WHERE idDisciplina = '$idDisciplina' AND idAluno = '$idAluno'";
+      // 6-7-7-6
+      $resultqueryNotas = mysql_query($querynotas);
+      $linhaNotas = mysql_fetch_array($resultqueryNotas);
+      $notaAluno = $linhaNotas["nota"];
+      $quebraNota = explode("-", $notaAluno);
 
-      $return.="</tr>";
-    }
-    echo $return.="</tbody></table>";
-  } else{
-    echo "Não há avisos para sua turma.".@$nome;
-  }
+      @$notaBim1 = $quebraNota[0];
+      @$notaBim2 = $quebraNota[1];
+      @$notaBim3 = $quebraNota[2];
+      @$notaBim4 = $quebraNota[3];
+      $media = ($notaBim1+$notaBim2+$notaBim3+$notaBim4)/4;
+      echo "<tr>";
+
+      echo "<td>". $linha["nomeDisciplina"] . "</td>";
+      echo "<td>". $notaBim1 . "</td>";
+      echo "<td>". $notaBim2 . "</td>";
+      echo "<td>". $notaBim3 . "</td>";
+      echo "<td>". $notaBim4 . "</td>";
+      echo "<td>". $media ."</td>";
+
+      echo "</tr>";
+}
+
+     ?>
+</tbody>
+<!--     </tr>
+    <td>Physics</td>
+    <td>7</td>
+    <td>8</td>
+    <td>9</td>
+    <td>10</td>
+    <td>8,5</td>
+    </tr> -->
+    
+
+    </tbody>
+  </table>
 
 
-
-
- ?>
-
-  
-  </div>
-
-     </div>
     </div>
   </div>
  </div>

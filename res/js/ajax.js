@@ -91,6 +91,27 @@ function cadastraTurma(){
 
 }	
 
+function removeAluno(){
+	var idRemover = document.getElementById("idAlunoRemover").value;
+	var resultado = document.getElementById("resultadoRemover").value;
+
+	xmlreq=criaRequest();
+	xmlreq.open("GET", "../class/Aluno.php?idAlunoRemover=" +idRemover,true);
+	
+	xmlreq.onreadystatechange = function(){
+		if(xmlreq.readyState == 4){
+			if(xmlreq.status == 200){
+				resultado.innerHTML = xmlreq.responseText;
+			}else{
+				resultado.innerHTML="Erro: " + xmlreq.statusText;
+			}
+		}
+	};
+	xmlreq.send(null)
+
+
+}
+
 
 
 // function adicionarAviso(Remetente){

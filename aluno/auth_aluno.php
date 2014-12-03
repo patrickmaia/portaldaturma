@@ -13,14 +13,14 @@ $stmt->execute();
 $obj= $stmt->fetchObject();
 
 if($obj){
-
-
+	unset($_SESSION['aluno']);
+	session_name('aluno');
 	session_start();
-	$_SESSION['sessionId'] = session_id();
 	//Armazena detalhes cruciais na sessão iniciada.
-	$_SESSION['login'] = $login;
-	$_SESSION['senha'] = $senha;
+	$_SESSION['loginAluno'] = $login;
+	$_SESSION['senhaAluno'] = $senha;
 	$_SESSION['nomeAluno'] = $obj->nomeAluno;
+	$_SESSION['idAluno'] = $obj->idAluno;
 	$_SESSION['turmaAluno'] = $obj->turmaAluno;
 	$_SESSION['matriculaAluno'] = $obj->matriculaAluno;
 	$_SESSION['emailAluno'] = $obj->emailAluno;

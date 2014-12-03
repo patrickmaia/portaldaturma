@@ -1,11 +1,13 @@
 <?PHP
+session_name('admin');
 session_start();
-if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a sessão, caso falhe redireciona pra página de login.
+ if ( !isset($_SESSION['loginAdmin']) and !isset($_SESSION['senhaAdmin']) ) { //Valida a sessão, caso falhe redireciona pra página de login.
     session_destroy();
     unset ($_SESSION['login']);
     unset ($_SESSION['senha']);
     header('location:login.php');
 }
+
 
 ?>
 
@@ -14,7 +16,7 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Portal da Turma - Login - Administrador</title>
+    <title>Administrador - Avisos</title>
     <!-- jQuery -->
     <script src="/res/js/jquery-2.1.0.min.js"></script>
 
@@ -65,6 +67,9 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
           </li>
           <li>
             <a href="Professores.php" id="showProfessores">Professores</a>
+          </li>
+          <li>
+            <a href="Disciplinas.php" id="showDisciplinas">Disciplinas</a>
           </li>
       </ul>
     </div>
@@ -162,7 +167,7 @@ if ( !isset($_SESSION['login']) and !isset($_SESSION['senha']) ) { //Valida a se
 
  <div class="row">
     <div class="col-xs-3">
-      <h3> Adicionar Aviso </h3>
+      <h2> Adicionar Aviso </h2>
 
 
     </div>
