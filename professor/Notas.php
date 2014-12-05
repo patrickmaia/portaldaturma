@@ -119,7 +119,9 @@ if ( !isset($_SESSION['loginProfessor']) and !isset($_SESSION['senhaProfessor'])
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12" id="conteudo">
-
+      <h3> <span class="glyphicon glyphicon-ok-circle"></span> Notas </h3>
+      <hr />
+   <h3> Seleciona a disciplina </h3>
       <?php 
         $idProfessor = $_SESSION['idProfessor'];
 
@@ -140,7 +142,7 @@ if ( !isset($_SESSION['loginProfessor']) and !isset($_SESSION['senhaProfessor'])
      <div id="selectTurmaSelecionada"></div>
 
     <div class="container-fluid" id="alunosNotas">
-teste
+
       </div>
 
       </div>

@@ -29,7 +29,7 @@ function getBotao(){
 
 
 	result = document.getElementById("alunosNotas");
-	result.innerHTML="<a href='insertNota.php?turmaSelecionada="+turmaSelecionada+"&disciplinaSelecionada="+disciplinaSelecionada+"'>Link</a>"
+	result.innerHTML="<br /><a class='btn btn-primary' href='insertNota.php?turmaSelecionada="+turmaSelecionada+"&disciplinaSelecionada="+disciplinaSelecionada+"'>Ok</a>"
 }
 // function getAlunosDisciplina(){
 // 	var turmaSelecionada = document.getElementById("turmaSelecionada").value;

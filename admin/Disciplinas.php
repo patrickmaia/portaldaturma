@@ -154,6 +154,7 @@ session_start();
          }
           ?>
     </div>
+     <h3><span class="glyphicon glyphicon-plus-sign"></span> Nova Disciplina </h3>
             <div class="form-group">
               <label for="nomeDisciplinaAdd">Nome Disciplina </label>
               <input name="nomeDisciplinaAdd" id="nomeDisciplinaAdd" type="text" class="form-control" >

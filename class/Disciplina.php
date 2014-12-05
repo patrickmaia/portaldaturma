@@ -10,7 +10,6 @@ $resultGetAlunos = $mysql->query($queryGetAlunos);
 
 
 	$returnTabela = "<table id='tabelaNotas' class='table table-striped'>
-
 						<thead>
 							<tr>
 							<th>".$turmaSelecionada."</th>
@@ -30,9 +29,11 @@ $resultGetAlunos = $mysql->query($queryGetAlunos);
 					$returnTabela.="<td><input  type='text'name='seg'> </td>";
 					$returnTabela.="<td><input  type='text'name='ter'> </td>";
 					$returnTabela.="<td><input  type='text'name='qua'> </td>";
+
 					$returnTabela.="<td><input type='submit' value='Enviar'/></td>";
 					$returnTabela.="</form>";
 					$returnTabela.="</tr>";
+
 
 	}
 
@@ -62,7 +63,7 @@ $disciplinaSelecionada = $_GET['disciplinaSelecionada'];
 $queryDisciplina = "SELECT * FROM disciplinas WHERE idDisciplina = '$disciplinaSelecionada'";
 $resultQuery = $mysql->query($queryDisciplina);
 
-echo "<p> Turma </p>";
+echo "<h3> Selecione a Turma </h3>";
 echo '<select name="turmaSelecionada" id="turmaSelecionada" onchange="getBotao();"> ';
         echo '<option VALUE="" selected="selected"></option>';
         while($row=mysql_fetch_array($resultQuery))

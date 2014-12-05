@@ -129,26 +129,54 @@ if(isset($_GET['turmaSelecionada'])){
 $turmaSelecionada = $_GET['turmaSelecionada'];
 $disciplinaSelecionada = $_GET['disciplinaSelecionada'];
 
-echo $turmaSelecionada;
-echo $disciplinaSelecionada;
+echo "<h3><span class='glyphicon glyphicon-ok-circle'></span> Notas</h3>";
  
 $result = $mysql->query("SELECT * FROM alunos WHERE turmaAluno = '$turmaSelecionada'");
 $linhas = mysql_num_rows($result);
+                // echo "<div class='table-responsive'>";
                 echo "<table class='table table-hover'>";
-                echo "<thead<tr><td> Aluno </td><td> Primeiro </td><td> Segundo</td><td> Terceiro</td><td>Quarto </td><td>Enviar</td></tr></thead>";
+                echo "<thead>
+                <tr>
+                <td>Aluno</td>
+                <td>1º</td>
+                <td>2º</td>
+                <td>3º</td>
+                <td>4º</td>
+                <td>Enviar</td>
+                </tr>
+                </thead>";
+
                 echo "<tbody>";
                 while ($row = mysql_fetch_array($result)){
                 $id = $row["idAluno"];  
                 $nome = $row["nomeAluno"];
                
-                echo '<form method="POST" action="insertNota.php?idAluno='.$id.'&idDisciplina='.$disciplinaSelecionada.'">';
-                // echo "<form action='insertNota.php?idAluno=".$id."' method'GET'>";
+                // Pegar as notas do aluno
+                $queryPegaNota = $mysql->query("SELECT * FROM notas WHERE idDisciplina = '$disciplinaSelecionada' AND idAluno = '$id'");
+                $linhaNota = mysql_fetch_array($queryPegaNota);
+                $ArrayNota = $linhaNota['nota'];
+                $notas = explode("-", $ArrayNota);
 
-                echo "<tr><td> $nome </td><td> <input type='text' name='pri'/></td><td><input type='text' name='seg'/> </td><td><input type='text' name='ter'/> </td><td><input type='text' name='qua'/> </td><td> <input type='submit' value='Enviar'/> </td></tr>";
+
+
+                //
+
+
+                echo '<form method="POST" action="insertNota.php?idAluno='.$id.'&idDisciplina='.$disciplinaSelecionada.'">';
+                echo "<tr>
+                <td> $nome </td>
+                <td> <input type='text' name='pri' value='".@$notas[0]."' /></td>
+                <td> <input type='text' name='seg' value='".@$notas[1]."' /></td>
+                <td> <input type='text' name='ter' value='".@$notas[2]."' /></td>
+                <td> <input type='text' name='qua' value='".@$notas[3]."' /></td>
+                <td> <input class='btn btn-primary' type='submit' value='Enviar'/> </td>
+                </tr>";
                 echo "</form>";
                 }
                 echo "</tbody>";
                 echo "</table>";
+                // echo "</div>";
+
 
  
 // @$idAluno = $_REQUEST['idAluno'];
@@ -171,12 +199,28 @@ $linhas = mysql_num_rows($result);
 $arrayNotas = array($nota1, $nota2, $nota3, $nota4);
 $NotaEnviar = implode("-", $arrayNotas);
 
-print $NotaEnviar;
 
+if(isset($nota1)){
 require_once('../class/mysql.php');
 $mysqlEnvio = new MySQL;
-// $queryNotas = ("INSERT INTO notas(idDisciplina, idAluno, nota) VALUES ('$idDisciplina', '$idAluno', '$NotaEnviar')");
+// Checar se já existe uma nota desse aluno
+$checaNota = $mysql->query("SELECT * FROM notas WHERE idDisciplina='$idDisciplina' AND idAluno='$idAluno'");
+$rowsAf = mysql_num_rows($checaNota);
+if($rowsAf == 1){
+$resultEnviarNotas = $mysqlEnvio->query("UPDATE notas SET idDisciplina='$idDisciplina',idAluno='$idAluno',nota='$NotaEnviar' WHERE idAluno='$idAluno'");
+}else{
 $resultEnviarNotas = $mysqlEnvio->query("INSERT INTO notas(idDisciplina, idAluno, nota) VALUES ('$idDisciplina', '$idAluno', '$NotaEnviar') ");
+}
+
+if($resultEnviarNotas){
+  echo '<div class="alert alert-success" role="alert">Notas enviadas com sucesso!</div>';
+}
+else{
+  echo '<div class="alert alert-warning" role="alert">Notas não enviadas.</div>';
+}
+echo '<button class="btn btn-primary" onclick="history.go(-1);"> Voltar </button>';
+
+}
  ?>
 
 </div>

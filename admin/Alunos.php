@@ -216,14 +216,7 @@ session_start();
 
             <div id="Resultado"></div>
             <hr />
-          <div id="Deletar">
-            <div class="row">     
-              <h3><span class=" glyphicon glyphicon-minus-sign"></span> Remover Aluno </h3>
-              <input type="text" class="form-control" id="idAlunoRemover">
-              <input type="button" class="btn btn-primary" name="btnPesquisar" style="margin-top:10px" value="Remover" onclick"getAluno();"/>
-            </div>
-          </div>
-          <div id="ResultadoRemover"></div>
+
             
 
   </div>

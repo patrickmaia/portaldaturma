@@ -180,7 +180,7 @@ session_start();
 
  <div class="row">
     <div class="col-xs-3">
-      <h2> Adicionar Aviso </h2>
+      <h3> <span class="glyphicon glyphicon-bullhorn"></span> Enviar Aviso </h3>
 
 
     </div>
@@ -206,7 +206,7 @@ session_start();
           ?>
           <form action ="../class/Aviso.php" name="adicionarAviso" method="POST">
               <textarea id="novoAviso" name="novoAviso" class="form-control" rows="3"> </textarea>
-
+              <br />
            <?php 
 
         require_once('../class/mysql.php');
@@ -222,6 +222,7 @@ session_start();
                 . '</option>';
         }
         echo '</select>';
+
      ?>
 
      <br />

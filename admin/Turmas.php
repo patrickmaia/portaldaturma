@@ -179,11 +179,14 @@ session_start();
 <div id="adicionarTurma">
   <div class="row">
     <div class="col-xs-3">
-        <h3> Adicionar Turma </h3>
-    </div>
-        <input type="text" class="form-control" placeholder="" id="nomeTurma">
-    </div>
+
+        <form role="form">
+        <div class="form-group">
+        <label for="nomeTurma"><span class="glyphicon glyphicon-plus"></span>Adicionar Turma</label>
+      <input type="text" class="form-control" placeholder="" id="nomeTurma">
+      </div>
       <input type="button" class="btn btn-primary" name="addAluno" id="addALuno" style="margin-top:10px;"value="Adcionar" onclick="cadastraTurma();"/>
+      </form>
 </div>
         <br />
 <div id="resultado"></div>

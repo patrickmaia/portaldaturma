@@ -152,7 +152,7 @@ if ( !isset($_SESSION['loginProfessor']) and !isset($_SESSION['senhaProfessor'])
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12" id="conteudo">
-      <h2> Enviar Aviso </h2>
+      <h3> <span class="glyphicon glyphicon-bullhorn"></span> Enviar Aviso </h3>
       <?php
            if(isset($_GET["msg"])){
            @$msg = "";
@@ -173,7 +173,7 @@ if ( !isset($_SESSION['loginProfessor']) and !isset($_SESSION['senhaProfessor'])
           ?>
           <form action ="../class/Aviso.php" name="adicionarAviso" method="POST">
               <textarea id="novoAviso" name="novoAviso" class="form-control" rows="3"> </textarea>
-
+              <br />
            <?php 
 
         require_once('../class/mysql.php');
