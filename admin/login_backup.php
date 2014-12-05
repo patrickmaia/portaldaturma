@@ -5,8 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Portal da Turma - Login - Administrador</title>
-    <link rel="shortcut icon" href="../res/transparent.gif" type="image/x-icon">
-    <link rel="icon" href="../res/transparent.gif" type="image/x-icon">
 
     <!-- jQuery -->
     <script src="/res/js/jquery-2.1.0.min.js"></script>
@@ -19,10 +17,6 @@
     <link rel="stylesheet" href="/res/css/bootstrapValidator.css"/>
     <script type="text/javascript" src="/res/js/bootstrapValidator.js"></script>
     <!-- -->
-
-    <!-- CSS do Login -->
-    <link href="/res/css/login.css" rel="stylesheet">
-    <!-- -->    
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,23 +27,33 @@
   </head>
   <body>
 
-	<div class="container"> <!-- Início do Formulário de Login !-->
-		
-		<form action="auth_admin.php" method="POST" id="formLogin" class="form-signin" role="form">
-                    <img src="/res/logo.gif" class="img-responsive" alt="Responsive image"> 
-
-            <h2 class="form-signin-heading"><span class="glyphicon glyphicon-user"> </span> Administrador</h2>
-            <label for="inputEmail" class="sr-only">Login</label>
-            <input type="text" name="login" id="login" class="form-control" placeholder="Login" required autofocus>
-            <label for="inputPassword" class="sr-only">Senha</label>
-            <input type="password" name="senha" id="senha" class="form-control" placeholder="Password" required>
-            <br />
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-        </form>
-
-	    			
+<div class="center-block" style="width:50%;"> <!-- Interessante trocar o 50% por 600px (definindo um tamanho fixo) e ver a diferença. -->
+	<img src="../res/logo.png" style="margin-top:5%;margin-left:15%;position:relative;"> </img>
+	<div class="container-fluid"> <!-- Início do Formulário de Login !-->
+		<div class="row">
+			<h2> <span class="glyphicon glyphicon-user"> </span> Administrador </h2>
+			<hr />
+			<form class="form-horizontal" role="form" id="formLogin" method="post" action="auth_admin.php">
+	  				<div class="form-group">
+	    				<label for="login" class="col-sm-2 control-label"> Login: </label>
+	        				<div class="col-sm-10">
+	     						<input type="text" name="login" id="login" class="form-control" placeholder="Login">
+	   						</div>
+	 				 </div>
+	  				<div class="form-group">
+	   					<label for="senha" class="col-sm-2 control-label"> Senha: </label>
+	    					<div class="col-sm-10">
+	    						<input type="password" name="senha" id="senha" class="form-control" placeholder="Senha">
+	  						</div>
+	  				</div>
+	    			<div class="form-group">
+	      				<div class="col-sm-offset-2 col-sm-10">
+	        				<button type="submit"class="btn btn-success"> Login </button>
+	      				</div>
+	    			</div>
+			</form> <!-- Fim do Formulário !-->
 		 </div> 
-	
+	</div>
 </div>
 
 <script>

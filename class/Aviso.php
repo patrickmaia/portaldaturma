@@ -9,7 +9,8 @@ session_name('admin');
 session_start();
 
 $idAviso = rand(1,10);
-$remetente = $_SESSION['nomeAdmin'];
+$remetente = $_POST['remetente'];
+$tipoRemetente = $_POST['tipoRemetente'];
 $destinatario = $_POST['turmaSelecionada'];
 $mensagem = $_POST['novoAviso'];
 
@@ -23,7 +24,13 @@ if($sql){
 else{
 	$msg = 2;
 }
-header('location:/admin/Avisos.php?msg='.$msg);
+if($tipoRemetente=="Professor"){
+	header('location:/professor/Avisos.php?msg='.$msg);
+}
+if($tipoRemetente=="Admin"){
+	header('location:/admin/Avisos.php?msg='.$msg);
+
+}
 
 
 

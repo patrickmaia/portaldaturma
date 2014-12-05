@@ -1,10 +1,10 @@
 <?PHP
-session_name('aluno');
+session_name('professor');
 session_start();
-if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) { 
+if ( !isset($_SESSION['loginProfessor']) and !isset($_SESSION['senhaProfessor']) ) { 
     session_destroy();
-    unset ($_SESSION['login']);
-    unset ($_SESSION['senha']);
+    unset ($_SESSION['loginProfessor']);
+    unset ($_SESSION['senhaProfessor']);
     header('location:../index.php');
 }
 
@@ -16,7 +16,7 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Aluno - Home</title>
+    <title>Home - Professor</title>
     <link rel="shortcut icon" href="../res/transparent.gif" type="image/x-icon">
     <link rel="icon" href="../res/transparent.gif" type="image/x-icon">
 
@@ -46,21 +46,21 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
   <body>
   <div id="wrapper">
 
-<!-- Sidebar -->
+   <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        <?php echo $_SESSION['nomeAluno'] ?>
+                        <?php echo $_SESSION['nomeProfessor']; ?>
                     </a>
                 </li>
                 <li>
                     <a href="Avisos.php" id="showAvisos">Avisos</a>
                 </li>
+               
                 <li>
                     <a href="Envios.php" id="showEnvios">Envios</a>
                 </li>
-  
                 <li>
                     <a href="Notas.php" id="showNotas">Notas</a>
                 </li>
@@ -86,15 +86,15 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-
-           <li class="dropdown">
+          <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cloud"></span> Dashboard <b class="caret"></b></a>
             <ul class="dropdown-menu">
-             <li><a href="Avisos.php" id="showAvisos">Avisos</a></li> 
-             <li><a href="Envios.php" id="showEnvios">Envios</a></li>
-              <li><a href="Notas.php" id="showNotas">Notas</a></li>  
+              <li><a href="Avisos.php" id="showAvisos">Avisos</a></li>
+              <li><a href="Envios.php" id="showEnvios">Envios</a></li>
+              <li><a href="Notas.php" id="showNotas">Notas</a></li>
             </ul>
           </li>
+          <li><a href="#"><i class="glyphicon glyphicon-user"></i> Perfil</a></li>
 
         </ul>
         
@@ -113,57 +113,95 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
       </nav>
       </div>
 
+      <!-- Funções do Sidebar -->
+      <script type="text/javascript">
+    $(document).ready(function(){
+      $("#Avisos").click(function(){
+        $("#conteudo").html(''
+
+          );
+      });
+    });
+
+
+       $(document).ready(function(){
+        $("#showAlunos").click(function(){
+          $("#conteudo").html('<div id="Pesquisar">\
+                <div class="row">\
+                  <div class="col-xs-3">\
+                    <h3> Nome do Aluno: </h3>\
+                    <input type="text" class="form-control" placeholder="" id="nomeAluno">\
+                  </div>\
+                </div>\
+                <input type="button" class="btn btn-primary" name="btnPesquisar" style="margin-top:10px;"value="Pesquisar" onclick="getAluno();"/>\
+            </div>\
+            <hr/>\
+            <h2>Resultados da pesquisa:</h2>\
+            <div id="Resultado"></div>\
+ </div>');
+        });
+      });
+
+
+      
+      </script> 
+      <!-- Sidebar -->
 
        
 <div id="page-content-wrapper"> <!--Importante encapsular o conteúdo da página com page-content-wrapper caso contrário o conteúdo irá invadir a sidebar. -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12" id="conteudo">
-        <h3><span class="glyphicon glyphicon-file"></span> Arquivos</h3>
+      <h2> Enviar Aviso </h2>
+      <?php
+           if(isset($_GET["msg"])){
+           @$msg = "";
+           @$msg = $_GET["msg"];
 
-        <table class='table table-hover'>
-            <thead>
-              <tr>
-              <th>IdEnvio </th>
-              <th>Título </th>
-              <th>Remetente </th>
-              <th> Download </th>
-              </tr>
-            </thead>
-            <tbody>
-          <?php  
-            $server = "localhost";
-            $user = "root";
-            $senha = "root";
-            $base = "portaldaturma";
-
-            $conexao = mysql_connect($server,$user,$senha) or die("Erro na conexão ");
-            mysql_select_db($base);
-            $turmaAluno = $_SESSION['turmaAluno'];
-
-            $buscaArquivos = mysql_query("SELECT * FROM envios WHERE idTurma = '$turmaAluno'");
-           
-            while($linha = mysql_fetch_array($buscaArquivos)){
-              echo "<tr>";
-              echo "<td>".$linha["idEnvio"]."</td>";
-              echo "<td>".$linha["tituloEnvio"]."</td>";
-              echo "<td>".$linha["Remetente"]."</td>";
-              $caminho = "../".$linha["FilePath"];
-              echo "<td><a href=".$caminho."> <img src='../res/arrow.png'></a></td>";
-              echo "</tr>";
-            }
+           if($msg=1){
+            echo '<div class="alert alert-success" role="alert">';
+            echo 'Aviso enviado com sucesso!';
+            echo '</div>';
+           }else{
+            
+            echo '<div class="alert alert-danger" role="alert">';
+            echo 'Aviso não enviado.';
+            echo '</div>';
+           }
+         
+         }
           ?>
+          <form action ="../class/Aviso.php" name="adicionarAviso" method="POST">
+              <textarea id="novoAviso" name="novoAviso" class="form-control" rows="3"> </textarea>
 
-          </tr>
-          </tbody>
-          <a href=""></a>
-          </table>
+           <?php 
+
+        require_once('../class/mysql.php');
+        $mysql = new MySQL;
+        $sql = "SELECT * FROM turmas";
+        $rs = $mysql->query($sql);
+        echo '<select name="turmaSelecionada" id="turmaSelecionada">';
+        echo '<option VALUE="" selected="selected"></option>';
+        while($row=mysql_fetch_array($rs))
+        {
+            echo '<option value="' . htmlspecialchars($row['idTurma']) . '">' 
+                . htmlspecialchars($row['Turma']) 
+                . '</option>';
+        }
+        echo '</select>';
+     ?>
+
+     <br />
+     <input type="hidden" name="tipoRemetente" value="Professor">
+     <input type="hidden" name="remetente" value="<?php echo $_SESSION['nomeProfessor']; ?>">
+    <input type="submit" class="btn btn-primary" name="addAviso" id="addAviso" style="margin-top:10px;" value="Adicionar" />
+    </form>
     </div>
   </div>
  </div>
 </div>
 
-<a href=""></a>
+
 
 
   </body>

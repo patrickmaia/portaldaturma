@@ -17,6 +17,8 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Administrador - Turmas</title>
+    <link rel="shortcut icon" href="../res/transparent.gif" type="image/x-icon">
+    <link rel="icon" href="../res/transparent.gif" type="image/x-icon">
     <!-- jQuery -->
     <script src="/res/js/jquery-2.1.0.min.js"></script>
 
@@ -92,9 +94,20 @@ session_start();
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#"><i class="glyphicon glyphicon-cloud"></i> Dashboard</a></li>
-          <li><a href="#"><i class="glyphicon glyphicon-user"></i> Perfil</a></li>
+          <li class="dropdown">
+            <a href="#" class="active dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cloud"></span> Dashboard <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="Turmas.php" id="showTurmas">Turmas</a></li>
+            <li><a href="Alunos.php" id="showAlunos">Alunos</a></li>
+            <li><a href="Avisos.php" id="showAvisos">Avisos</a></li>
+            <li><a href="Envios.php" id="showEnvios">Envios</a></li>
+            <li><a href="Professores.php" id="showProfessores">Professores</a></li>
+            <li><a href="Disciplinas.php" id="showDisciplinas">Disciplinas</a>
+            </ul>
+          </li>
+
           <li><a href="sysinfo/"><i class="glyphicon glyphicon-list-alt"></i> Gerenciar</a></li>
+
 
         </ul>
         
@@ -104,7 +117,6 @@ session_start();
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opções <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#"> <i class="glyphicon glyphicon-cog"></i>  <i class="divider"></i>Editar Perfil</a></li>
              <li><a href="logout.php"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
             </ul>
           </li>

@@ -17,6 +17,8 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Aluno - Notas</title>
+    <link rel="shortcut icon" href="../res/transparent.gif" type="image/x-icon">
+    <link rel="icon" href="../res/transparent.gif" type="image/x-icon">
 
     <!-- jQuery -->
     <script src="../res/js/jquery-2.1.0.min.js"></script>
@@ -56,7 +58,7 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
                     <a href="Avisos.php" id="showAvisos">Avisos</a>
                 </li>
                 <li>
-                    <a href="#" id="showEnvios">Envios</a>
+                    <a href="Envios.php" id="showEnvios">Envios</a>
                 </li>
   
                 <li>
@@ -84,9 +86,15 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#"><i class="glyphicon glyphicon-cloud"></i> Dashboard</a></li>
-          <li><a href="#"><i class="glyphicon glyphicon-user"></i> Perfil</a></li>
-          <li><a href="adminGerenciar.php"><i class="glyphicon glyphicon-list-alt"></i> Gerenciar</a></li>
+
+           <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cloud"></span> Dashboard <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+             <li><a href="Avisos.php" id="showAvisos">Avisos</a></li> 
+             <li><a href="Envios.php" id="showEnvios">Envios</a></li>
+              <li><a href="Notas.php" id="showNotas">Notas</a></li>  
+            </ul>
+          </li>
 
         </ul>
         
@@ -96,7 +104,6 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opções <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#"> <i class="glyphicon glyphicon-cog"></i>  <i class="divider"></i>Editar Perfil</a></li>
              <li><a href="logout.php"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
             </ul>
           </li>
@@ -110,20 +117,19 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
        
 <div id="page-content-wrapper"> <!--Importante encapsular o conteúdo da página com page-content-wrapper caso contrário o conteúdo irá invadir a sidebar. -->
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-12" id="conteudo">
-        <?php echo "<h1>".$_SESSION['nomeAluno']." - Notas </h1>" ?>
-    <table class='table table-striped'>  
-    <thead>
+      <div class="row">
+        <div class="col-lg-12" id="conteudo">
+        <table class='table table-hover'>  
+          <thead>
                   <tr>
                   <th>Disciplina </th>
-                  <th>1º Bimestre </th>
-                  <th>2º Bimestre</th>
-                  <th>3º Bimestre</th>
-                  <th>4º Bimestre</th>
+                  <th>1º  </th>
+                  <th>2º </th>
+                  <th>3º </th>
+                  <th>4º </th>
                   <th>Média</th>
                   </tr>
-    </thead>
+          </thead>
     <tbody>
     <?php 
     include('../class/mysql.php');
@@ -155,28 +161,16 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
       @$notaBim4 = $quebraNota[3];
       $media = ($notaBim1+$notaBim2+$notaBim3+$notaBim4)/4;
       echo "<tr>";
-
       echo "<td>". $linha["nomeDisciplina"] . "</td>";
       echo "<td>". $notaBim1 . "</td>";
       echo "<td>". $notaBim2 . "</td>";
       echo "<td>". $notaBim3 . "</td>";
       echo "<td>". $notaBim4 . "</td>";
       echo "<td>". $media ."</td>";
-
-      echo "</tr>";
-}
+      echo "</tr>";}
 
      ?>
 </tbody>
-<!--     </tr>
-    <td>Physics</td>
-    <td>7</td>
-    <td>8</td>
-    <td>9</td>
-    <td>10</td>
-    <td>8,5</td>
-    </tr> -->
-    
 
     </tbody>
   </table>

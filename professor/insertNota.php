@@ -1,10 +1,10 @@
 <?PHP
-session_name('aluno');
+session_name('professor');
 session_start();
-if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) { 
+if ( !isset($_SESSION['loginProfessor']) and !isset($_SESSION['senhaProfessor']) ) { 
     session_destroy();
-    unset ($_SESSION['login']);
-    unset ($_SESSION['senha']);
+    unset ($_SESSION['loginProfessor']);
+    unset ($_SESSION['senhaProfessor']);
     header('location:../index.php');
 }
 
@@ -16,7 +16,7 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Aluno - Home</title>
+    <title>Home - Professor</title>
     <link rel="shortcut icon" href="../res/transparent.gif" type="image/x-icon">
     <link rel="icon" href="../res/transparent.gif" type="image/x-icon">
 
@@ -46,21 +46,21 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
   <body>
   <div id="wrapper">
 
-<!-- Sidebar -->
+   <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        <?php echo $_SESSION['nomeAluno'] ?>
+                        <?php echo $_SESSION['nomeProfessor']; ?>
                     </a>
                 </li>
                 <li>
                     <a href="Avisos.php" id="showAvisos">Avisos</a>
                 </li>
+               
                 <li>
                     <a href="Envios.php" id="showEnvios">Envios</a>
                 </li>
-  
                 <li>
                     <a href="Notas.php" id="showNotas">Notas</a>
                 </li>
@@ -86,15 +86,15 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-
-           <li class="dropdown">
+          <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cloud"></span> Dashboard <b class="caret"></b></a>
             <ul class="dropdown-menu">
-             <li><a href="Avisos.php" id="showAvisos">Avisos</a></li> 
-             <li><a href="Envios.php" id="showEnvios">Envios</a></li>
-              <li><a href="Notas.php" id="showNotas">Notas</a></li>  
+              <li><a href="Avisos.php" id="showAvisos">Avisos</a></li>
+              <li><a href="Envios.php" id="showEnvios">Envios</a></li>
+              <li><a href="Notas.php" id="showNotas">Notas</a></li>
             </ul>
           </li>
+          <li><a href="#"><i class="glyphicon glyphicon-user"></i> Perfil</a></li>
 
         </ul>
         
@@ -114,57 +114,74 @@ if ( !isset($_SESSION['loginAluno']) and !isset($_SESSION['senhaAluno']) ) {
       </div>
 
 
+
        
 <div id="page-content-wrapper"> <!--Importante encapsular o conteúdo da página com page-content-wrapper caso contrário o conteúdo irá invadir a sidebar. -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12" id="conteudo">
-        <h3><span class="glyphicon glyphicon-file"></span> Arquivos</h3>
+<?php 
+require('../class/mysql.php');
+$mysql = new MySQL;
+// Pega os Alunos da Turma e imprime a tabela pra inserir notas //
+if(isset($_GET['turmaSelecionada'])){
+ 
+$turmaSelecionada = $_GET['turmaSelecionada'];
+$disciplinaSelecionada = $_GET['disciplinaSelecionada'];
 
-        <table class='table table-hover'>
-            <thead>
-              <tr>
-              <th>IdEnvio </th>
-              <th>Título </th>
-              <th>Remetente </th>
-              <th> Download </th>
-              </tr>
-            </thead>
-            <tbody>
-          <?php  
-            $server = "localhost";
-            $user = "root";
-            $senha = "root";
-            $base = "portaldaturma";
+echo $turmaSelecionada;
+echo $disciplinaSelecionada;
+ 
+$result = $mysql->query("SELECT * FROM alunos WHERE turmaAluno = '$turmaSelecionada'");
+$linhas = mysql_num_rows($result);
+                echo "<table class='table table-hover'>";
+                echo "<thead<tr><td> Aluno </td><td> Primeiro </td><td> Segundo</td><td> Terceiro</td><td>Quarto </td><td>Enviar</td></tr></thead>";
+                echo "<tbody>";
+                while ($row = mysql_fetch_array($result)){
+                $id = $row["idAluno"];  
+                $nome = $row["nomeAluno"];
+               
+                echo '<form method="POST" action="insertNota.php?idAluno='.$id.'&idDisciplina='.$disciplinaSelecionada.'">';
+                // echo "<form action='insertNota.php?idAluno=".$id."' method'GET'>";
 
-            $conexao = mysql_connect($server,$user,$senha) or die("Erro na conexão ");
-            mysql_select_db($base);
-            $turmaAluno = $_SESSION['turmaAluno'];
+                echo "<tr><td> $nome </td><td> <input type='text' name='pri'/></td><td><input type='text' name='seg'/> </td><td><input type='text' name='ter'/> </td><td><input type='text' name='qua'/> </td><td> <input type='submit' value='Enviar'/> </td></tr>";
+                echo "</form>";
+                }
+                echo "</tbody>";
+                echo "</table>";
 
-            $buscaArquivos = mysql_query("SELECT * FROM envios WHERE idTurma = '$turmaAluno'");
-           
-            while($linha = mysql_fetch_array($buscaArquivos)){
-              echo "<tr>";
-              echo "<td>".$linha["idEnvio"]."</td>";
-              echo "<td>".$linha["tituloEnvio"]."</td>";
-              echo "<td>".$linha["Remetente"]."</td>";
-              $caminho = "../".$linha["FilePath"];
-              echo "<td><a href=".$caminho."> <img src='../res/arrow.png'></a></td>";
-              echo "</tr>";
-            }
-          ?>
+ 
+// @$idAluno = $_REQUEST['idAluno'];
+// @$primeiro_bimestre = $_GET["pri"];
+// @$segundo_bimestre = $_GET['seg'];
+// @$terceiro_bimestre = $_GET['ter'];
+// @$quarto_bimestre = $_GET['qua'];
 
-          </tr>
-          </tbody>
-          <a href=""></a>
-          </table>
-    </div>
-  </div>
+}
+ ?>
+
+ <?php
+@$idAluno=$_GET['idAluno'];
+@$idDisciplina=$_GET['idDisciplina'];
+@$nota1=$_POST['pri'];  
+@$nota2=$_POST['seg'];
+@$nota3=$_POST['ter'];  
+@$nota4=$_POST['qua'];  
+
+$arrayNotas = array($nota1, $nota2, $nota3, $nota4);
+$NotaEnviar = implode("-", $arrayNotas);
+
+print $NotaEnviar;
+
+require_once('../class/mysql.php');
+$mysqlEnvio = new MySQL;
+// $queryNotas = ("INSERT INTO notas(idDisciplina, idAluno, nota) VALUES ('$idDisciplina', '$idAluno', '$NotaEnviar')");
+$resultEnviarNotas = $mysqlEnvio->query("INSERT INTO notas(idDisciplina, idAluno, nota) VALUES ('$idDisciplina', '$idAluno', '$NotaEnviar') ");
+ ?>
+
+</div>
  </div>
 </div>
-
-<a href=""></a>
-
 
   </body>
 </html>

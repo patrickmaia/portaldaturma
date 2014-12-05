@@ -51,7 +51,7 @@ if ( !isset($_SESSION['loginProfessor']) and !isset($_SESSION['senhaProfessor'])
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Professor
+                        <?php echo $_SESSION['nomeProfessor']; ?>
                     </a>
                 </li>
                 <li>
@@ -59,10 +59,10 @@ if ( !isset($_SESSION['loginProfessor']) and !isset($_SESSION['senhaProfessor'])
                 </li>
                
                 <li>
-                    <a href="Envios.php">Envios</a>
+                    <a href="Envios.php" id="showEnvios">Envios</a>
                 </li>
                 <li>
-                    <a href="Notas.php">Notas</a>
+                    <a href="Notas.php" id="showNotas">Notas</a>
                 </li>
               
             </ul>
@@ -86,7 +86,14 @@ if ( !isset($_SESSION['loginProfessor']) and !isset($_SESSION['senhaProfessor'])
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#"><i class="glyphicon glyphicon-cloud"></i> Dashboard</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cloud"></span> Dashboard <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="Avisos.php" id="showAvisos">Avisos</a></li>
+              <li><a href="Envios.php" id="showEnvios">Envios</a></li>
+              <li><a href="Notas.php" id="showNotas">Notas</a></li>
+            </ul>
+          </li>
           <li><a href="#"><i class="glyphicon glyphicon-user"></i> Perfil</a></li>
 
         </ul>
@@ -97,7 +104,6 @@ if ( !isset($_SESSION['loginProfessor']) and !isset($_SESSION['senhaProfessor'])
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opções <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#"> <i class="glyphicon glyphicon-cog"></i>  <i class="divider"></i>Editar Perfil</a></li>
              <li><a href="logout.php"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
             </ul>
           </li>
@@ -146,8 +152,7 @@ if ( !isset($_SESSION['loginProfessor']) and !isset($_SESSION['senhaProfessor'])
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12" id="conteudo">
-      Div Loader
-    </div>
+        <a href="http://www.google.com" role="button" class="btn btn-primary">Notas</a>    </div>
   </div>
  </div>
 </div>

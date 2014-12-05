@@ -2,7 +2,8 @@
 //Envio = idEnvio + Remetente + Destinatário + Caminho do Arquivo
 require('mysql.php');
 $mysql = new MySQL;
-$remetente = $_POST['remetente']." - Admin";
+$remetente = $_POST['remetente'];
+$tipoRemetente = $_POST['tipoRemetente'];
 
 
 
@@ -14,7 +15,9 @@ $uploaddir = '/var/www/html/uploads/';
 
 $rawFilename = $_FILES['arquivoEnviar']['name'];
 $extension = pathinfo($rawFilename, PATHINFO_EXTENSION);
-$caminho = "uploads/".$rawFilename;
+// $caminho = "uploads/".$rawFilename;
+	$caminho = "uploads/".$_FILES['arquivoEnviar']['name'];
+
 $uploadfile = $uploaddir. $_FILES['arquivoEnviar']['name'];
 if (move_uploaded_file($_FILES['arquivoEnviar']['tmp_name'], $uploaddir.$_FILES['arquivoEnviar']['name'])) {
 
@@ -29,7 +32,13 @@ if (move_uploaded_file($_FILES['arquivoEnviar']['tmp_name'], $uploaddir.$_FILES[
 	$msg = 2;
 }
 
-header('location:/admin/Envios.php?msg='.$msg.'&idEnvio='.$idEnvio);
+if($tipoRemetente == "Admin"){
+	header('location:/admin/Envios.php?msg='.$msg.'&idEnvio='.$idEnvio);
+}
+if($tipoRemetente == "Professor"){
+	header('location:/professor/Envios.php?msg='.$msg.'&idEnvio='.$idEnvio);
+}
+
 
 
  ?>

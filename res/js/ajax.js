@@ -1,5 +1,58 @@
 /* Estudos Ajax */
 
+
+function alertSelecionada(){
+	var disciplinaSelecionada = document.getElementById("disciplinaSelecionada").value;
+	var result = document.getElementById("selectTurmaSelecionada");
+
+	var xmlreq = criaRequest();
+
+	result.innerHTML = '<img src="../res/loading.gif"/>';
+
+	xmlreq.open("GET", "../class/Disciplina.php?disciplinaSelecionada=" + disciplinaSelecionada, true);
+
+xmlreq.onreadystatechange = function(){
+	if(xmlreq.readyState == 4){
+		if(xmlreq.status == 200){
+			result.innerHTML = xmlreq.responseText;
+		}else{
+			result.innerHTML = "Erro: " + xmlreq.statusText;
+
+		} 
+	}
+};
+xmlreq.send(null);
+}
+function getBotao(){
+	var turmaSelecionada = document.getElementById("turmaSelecionada").value;
+	var disciplinaSelecionada = document.getElementById("disciplinaSelecionada").value;
+
+
+	result = document.getElementById("alunosNotas");
+	result.innerHTML="<a href='insertNota.php?turmaSelecionada="+turmaSelecionada+"&disciplinaSelecionada="+disciplinaSelecionada+"'>Link</a>"
+}
+// function getAlunosDisciplina(){
+// 	var turmaSelecionada = document.getElementById("turmaSelecionada").value;
+// 	var disciplinaNota = document.getElementById("disciplinaSelecionada").value;
+
+// 	var result = document.getElementById("alunosNotas");
+// 	result.innerHTML="<a href='insertNota.php'></a>"
+// 	var xmlreq = criaRequest();
+
+// 	xmlreq.open("GET", "../class/Disciplina.php?turmaSelecionada=" + turmaSelecionada +"&disciplinaNota="+ disciplinaNota, true);
+// 	xmlreq.onreadystatechange = function(){
+// 	if(xmlreq.readyState == 4){
+// 		if(xmlreq.status == 200){
+// 			result.innerHTML = xmlreq.responseText;
+// 		}else{
+// 			result.innerHTML = "Erro: " + xmlreq.statusText;
+
+// 		} 
+// 	}
+// };
+// xmlreq.send(null);
+// }
+
 function criaRequest(){
 	try{
 		request = new XMLHttpRequest();
